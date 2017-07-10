@@ -1,15 +1,54 @@
-name: my-snap-name # you probably want to 'snapcraft register <name>'
-version: '0.1' # just for humans, typically '1.2+git' or '1.3.2'
-summary: Single-line elevator pitch for your amazing snap # 79 char long summary
+name: musicbrainz-picard
+version: '1.4.2'
+summary: MusicBrainz Picard is the official MusicBrainz tagger.
 description: |
-  This is my-snap's description. You have a paragraph or two to tell the
-  most important story about your snap. Keep it under 100 words though,
-  we live in tweetspace and your description wants to look good in the snap
-  store.
+  Picard supports the majority of audio file formats, is capable of using
+  audio fingerprints (AcoustIDs), performing CD lookups and disc ID submissions,
+  and it has excellent Unicode support. Additionally, there are several plugins
+  available that extend Picard's features.
 
-confinement: devmode # use 'strict' once you have the right plugs and slots
+grade: devel
+confinement: strict
+icon: picard.svg
+
+apps:
+  musicbrainz-picard:
+    command: desktop-launch ${SNAP}/bin/picard
+    plugs:
+      - gsettings
+      - home
+      - network
+      - network-bind
+      - pulseaudio
+      - unity7
+      - x11
+      - optical-drive
 
 parts:
-  my-part:
-    # See 'snapcraft plugins'
-    plugin: nil
+  musicbrainz-picard:
+    source: https://github.com/metabrainz/picard
+    source-type: git
+    source-tag: release-1.4.2
+    plugin: python
+    python-version: python2
+    prepare: git apply $SNAPCRAFT_STAGE/disable-gconf.patch
+    stage-packages:
+      - libgettextpo0
+      - libchromaprint-tools
+      - python-libdiscid
+      - python-qt4
+      - python-mutagen
+      - gconf2
+      - dconf-cli
+      - libcanberra-gtk-module
+      - overlay-scrollbar-gtk2
+      - unity-gtk2-module
+      - hicolor-icon-theme
+      - libatk-adaptor
+      - libgail-common
+    after: [desktop-qt5, patches]
+  patches:
+    source: snap/patches
+    plugin: dump
+    prime:
+      - -*
