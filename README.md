@@ -4,7 +4,7 @@
   MusicBrainz Picard
 </h1>
 
-<p align="center"><b>This is the snap for MusicBrainz Picard</b>, <i>"MusicBrainz Picard is the official MusicBrainz tagger"</i>. It works on Ubuntu, Fedora, Debian, and other major Linux
+<p align="center"><b>This is the snap for MusicBrainz Picard</b>, <i>"Picard is the official MusicBrainz tagger"</i>. It works on Ubuntu, Fedora, Debian, and other major Linux
 distributions.</p>
 
 <!-- Uncomment and modify this when you are provided a build status badge
@@ -29,8 +29,9 @@ distributions.</p>
 ## Remaining tasks
 
 Snapcrafters ([join us]()) are working to land snap install documentation and
-the [snapcraft.yaml](https://github.com/snapcrafters/fork-and-rename-me/blob/master/snap/snapcraft.yaml)
-upstream so [Project] can authoritatively publish future releases.
+the
+[snapcraft.yaml](https://github.com/pachulo/musicbrainz-picard-snap/blob/master/snap/snapcraft.yaml)
+upstream so Picard can authoritatively publish future releases.
 
   - [x] Fork the [Snapcrafters template](https://github.com/snapcrafters/fork-and-rename-me) repository to your own GitHub account
   - [x] Rename the forked Snapcrafters template repository
@@ -62,9 +63,9 @@ If you have any questions, [post in the Snapcraft forum](https://forum.snapcraft
 
 ## The Snapcrafters
 
-| [![Your Name](http://gravatar.com/avatar/bc0bced65e963eb5c3a16cab8b004431/?s=128)](https://github.com/yourname/) |
+| [![Marc](http://gravatar.com/avatar/bc0bced65e963eb5c3a16cab8b004431/?s=128)](https://github.com/pachulo/) |
 | :---: |
-| [Your Name](https://github.com/yourname/) |
+| [Marc](https://github.com/pachulo/) |
 
 <!-- Uncomment and modify this when you have upstream contacts
 ## Upstream
