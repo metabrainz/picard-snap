@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=MusicBrainz Picard
 Comment=Tag your music with the next generation MusicBrainz tagger
-Exec=musicbrainz-picard %U
+Exec=picard %U
 Terminal=false
 Type=Application
 StartupNotify=true

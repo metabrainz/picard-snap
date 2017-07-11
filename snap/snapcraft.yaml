@@ -1,6 +1,6 @@
-name: musicbrainz-picard
+name: picard
 version: '1.4.2'
-summary: MusicBrainz Picard is the official MusicBrainz tagger.
+summary: Picard is the official MusicBrainz tagger.
 description: |
   Picard supports the majority of audio file formats, is capable of using
   audio fingerprints (AcoustIDs), performing CD lookups and disc ID submissions,
@@ -12,7 +12,7 @@ confinement: strict
 icon: picard.svg
 
 apps:
-  musicbrainz-picard:
+  picard:
     command: desktop-launch ${SNAP}/bin/picard
     plugs:
       - gsettings
@@ -25,7 +25,7 @@ apps:
       - optical-drive
 
 parts:
-  musicbrainz-picard:
+  picard:
     source: https://github.com/metabrainz/picard
     source-type: git
     source-tag: release-1.4.2
