@@ -1,6 +1,6 @@
 <h1 align="center">
   <img
-  src="https://raw.githubusercontent.com/pachulo/musicbrainz-picard-snap/master/picard.svg" alt="MusicBrainz Picard">
+  src="https://raw.githubusercontent.com/pachulo/musicbrainz-picard-snap/master/picard.png" alt="MusicBrainz Picard">
   <br />
   MusicBrainz Picard
 </h1>
