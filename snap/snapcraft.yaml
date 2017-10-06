@@ -7,7 +7,7 @@ description: |
   and it has excellent Unicode support. Additionally, there are several plugins
   available that extend Picard's features.
 
-grade: devel
+grade: stable
 confinement: strict
 icon: picard.svg
 
