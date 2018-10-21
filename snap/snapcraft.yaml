@@ -31,8 +31,9 @@ parts:
     source-type: git
     source-tag: release-2.0.4
     plugin: python
-    python-version: python3
     # prepare: git apply $SNAPCRAFT_STAGE/disable-gconf.patch
+    requirements:
+      - requirements.txt
     stage-packages:
       - libgettextpo0
       - libchromaprint-tools
