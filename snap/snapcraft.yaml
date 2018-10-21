@@ -1,5 +1,5 @@
 name: picard
-version: '1.4.2'
+version: '2.0.4'
 summary: Picard is the official MusicBrainz tagger.
 description: |
   Picard supports the majority of audio file formats, is capable of using
