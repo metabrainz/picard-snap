@@ -15,6 +15,8 @@ base: core18
 apps:
   picard:
     command: desktop-launch ${SNAP}/bin/picard
+    environment:
+        DISABLE_WAYLAND: 1
     plugs:
       - gsettings
       - home
@@ -24,6 +26,8 @@ apps:
       - unity7
       - x11
       - optical-drive
+      - wayland
+      - desktop
 
 parts:
   picard:
@@ -50,8 +54,8 @@ parts:
         #- libgail-common
       - python3-pyqt5
       - gettext
-    after:
-      - desktop-qt5
+      - qtwayland5
+    after: [desktop-qt5]
       # - patches
     #patches:
       #source: snap/patches
