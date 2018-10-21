@@ -32,22 +32,22 @@ parts:
     source-tag: release-2.0.4
     plugin: python
     # prepare: git apply $SNAPCRAFT_STAGE/disable-gconf.patch
-    build-packages:
-      - pyqt5-dev-tools
+    #build-packages:
+    #  - pyqt5-dev-tools
     stage-packages:
       - libgettextpo0
       - libchromaprint-tools
-      - python-libdiscid
-      - python-qt4
-      - python-mutagen
-      - gconf2
-      - dconf-cli
-      - libcanberra-gtk-module
-      - overlay-scrollbar-gtk2
-      - unity-gtk2-module
-      - hicolor-icon-theme
-      - libatk-adaptor
-      - libgail-common
+      - python3-libdiscid
+        #- python-qt4
+      - python3-mutagen
+        #- gconf2
+        #- dconf-cli
+        #- libcanberra-gtk-module
+        #- overlay-scrollbar-gtk2
+        #- unity-gtk2-module
+        #- hicolor-icon-theme
+        #- libatk-adaptor
+        #- libgail-common
       - python3-pyqt5
     after:
       - desktop-qt5
