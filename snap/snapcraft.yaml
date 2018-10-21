@@ -49,6 +49,7 @@ parts:
         #- libatk-adaptor
         #- libgail-common
       - python3-pyqt5
+      - gettext
     after:
       - desktop-qt5
       # - patches
