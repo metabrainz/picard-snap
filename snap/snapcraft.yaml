@@ -53,6 +53,6 @@ parts:
       - python3-pyqt5
       - gettext
       - qtwayland5
-    prime:
+    stage:
       - usr/share/locale
     after: [desktop-qt5]
