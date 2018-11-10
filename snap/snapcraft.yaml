@@ -53,6 +53,6 @@ parts:
       - python3-pyqt5
       - gettext
       - qtwayland5
-    stage:
-      - usr/share/locale
+    organize:
+        - usr/share/locale: share/locale
     after: [desktop-qt5]
