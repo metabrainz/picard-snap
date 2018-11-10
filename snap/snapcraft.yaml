@@ -54,5 +54,5 @@ parts:
       - gettext
       - qtwayland5
     organize:
-      usr/share/locale: usr/share/locale
+      usr/share/locale: share/locale
     after: [desktop-qt5]
