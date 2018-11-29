@@ -57,8 +57,3 @@ parts:
       - gettext
       - qtwayland5
     after: [desktop-qt5]
-  patches:
-    source: snap/patches
-    plugin: dump
-    prime:
-      - -*
