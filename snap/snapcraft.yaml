@@ -37,7 +37,7 @@ parts:
     source-tag: release-2.0.4
     plugin: python
     override-pull: |
-        snapcraft pull
+        snapcraftctl pull
         git apply $SNAPCRAFT_STAGE/create-wheel-with-locales.patch
     stage-packages:
       - libgettextpo0
