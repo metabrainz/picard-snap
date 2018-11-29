@@ -36,7 +36,9 @@ parts:
     source-type: git
     source-tag: release-2.0.4
     plugin: python
-    prepare: git apply $SNAPCRAFT_STAGE/create-wheel-with-locales.patch
+    override-pull: |
+        snapcraft pull
+        git apply $SNAPCRAFT_STAGE/create-wheel-with-locales.patch
     stage-packages:
       - libgettextpo0
       - libchromaprint-tools
