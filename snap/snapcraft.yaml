@@ -36,6 +36,7 @@ parts:
     source-type: git
     source-tag: release-2.0.4
     plugin: python
+    prepare: git apply $SNAPCRAFT_STAGE/create-wheel-with-locales.patch
     stage-packages:
       - libgettextpo0
       - libchromaprint-tools
@@ -53,6 +54,9 @@ parts:
       - python3-pyqt5
       - gettext
       - qtwayland5
-    organize:
-      usr/share/locale: share/locale
     after: [desktop-qt5]
+  patches:
+    source: snap/patches
+    plugin: dump
+    prime:
+      - -*
