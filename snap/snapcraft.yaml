@@ -17,6 +17,7 @@ apps:
     command: desktop-launch ${SNAP}/bin/picard
     environment:
         DISABLE_WAYLAND: 1
+        TEXTDOMAINDIR: "$SNAP/share/locale"
     plugs:
       - gsettings
       - home
