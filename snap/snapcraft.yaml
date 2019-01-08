@@ -1,5 +1,5 @@
 name: picard
-version: '2.0.4'
+version: '2.1.0'
 summary: Picard is the official MusicBrainz tagger.
 description: |
   Picard supports the majority of audio file formats, is capable of using
@@ -17,7 +17,7 @@ apps:
     command: desktop-launch ${SNAP}/bin/picard
     environment:
         DISABLE_WAYLAND: 1
-        TEXTDOMAINDIR: "$SNAP/share/locale"
+        #TEXTDOMAINDIR: "$SNAP/share/locale"
     plugs:
       - gsettings
       - home
@@ -35,11 +35,11 @@ parts:
   picard:
     source: https://github.com/metabrainz/picard
     source-type: git
-    source-tag: release-2.0.4
+    source-tag: release-2.1.0
     plugin: python
-    override-pull: |
-        snapcraftctl pull
-        git apply --verbose ../../../create-wheel-with-locales.patch
+    #override-pull: |
+    #    snapcraftctl pull
+    #    git apply --verbose ../../../create-wheel-with-locales.patch
     stage-packages:
       - libgettextpo0
       - libchromaprint-tools
