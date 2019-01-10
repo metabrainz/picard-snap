@@ -17,7 +17,6 @@ apps:
     command: desktop-launch ${SNAP}/bin/picard
     environment:
         DISABLE_WAYLAND: 1
-        #TEXTDOMAINDIR: "$SNAP/share/locale"
     plugs:
       - gsettings
       - home
@@ -37,9 +36,9 @@ parts:
     source-type: git
     source-tag: release-2.1.0
     plugin: python
-    #override-pull: |
-    #    snapcraftctl pull
-    #    git apply --verbose ../../../create-wheel-with-locales.patch
+    override-pull: |
+      snapcraftctl pull
+      git apply --verbose ../../../localedir.patch
     stage-packages:
       - libgettextpo0
       - libchromaprint-tools
@@ -57,4 +56,6 @@ parts:
       - python3-pyqt5
       - gettext
       - qtwayland5
+    build-packages:
+      - appstream
     after: [desktop-qt5]
