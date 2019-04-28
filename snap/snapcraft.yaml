@@ -29,6 +29,7 @@ apps:
       - wayland
       - desktop
       - opengl
+      - removable-media
 
 parts:
   picard:
