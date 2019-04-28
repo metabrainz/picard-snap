@@ -36,6 +36,7 @@ parts:
     - patching
 
     source: https://github.com/metabrainz/picard.git
+    source-depth: 1000
     source-tag: release-2.1.3
     plugin: x-python
     override-build: |
