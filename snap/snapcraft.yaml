@@ -1,5 +1,4 @@
 name: picard
-version: '2.1.3'
 summary: Picard is the official MusicBrainz tagger.
 description: |
   Picard supports the majority of audio file formats, is capable of using
@@ -11,6 +10,7 @@ grade: stable
 confinement: strict
 icon: picard.svg
 base: core18
+adopt-info: picard
 
 apps:
   picard:
@@ -35,11 +35,18 @@ parts:
   picard:
     after:
     - patching
+    - selective-checkout
 
     source: https://github.com/metabrainz/picard.git
     source-depth: 1000
-    source-tag: release-2.1.3
     plugin: x-python
+    override-pull: |
+      snapcraftctl pull
+
+      "$SNAPCRAFT_STAGE"/scriptlets/selective-checkout \
+        --release-tag-prefix=release- \
+        --beta-tag-pattern='dev.*$'
+
     override-build: |
       git apply --verbose "${SNAPCRAFT_STAGE}"/patching/localedir.patch
 
@@ -95,5 +102,16 @@ parts:
     plugin: dump
     organize:
       '*': patching/
+    prime:
+    - -*
+
+  # Check out the tagged release revision if it isn't promoted to the stable channel
+  # https://forum.snapcraft.io/t/selective-checkout-check-out-the-tagged-release-revision-if-it-isnt-promoted-to-the-stable-channel/10617
+  selective-checkout:
+    plugin: nil
+    build-packages:
+    - git
+    stage-snaps:
+    - selective-checkout/latest/edge
     prime:
     - -*
