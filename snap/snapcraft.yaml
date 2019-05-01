@@ -11,10 +11,15 @@ confinement: strict
 icon: picard.svg
 base: core18
 adopt-info: picard
+assumes:
+- command-chain
 
 apps:
   picard:
-    command: desktop-launch ${SNAP}/bin/picard
+    adapter: full
+    command: bin/picard
+    command-chain:
+      - bin/desktop-launch
     environment:
         DISABLE_WAYLAND: 1
         QT_QPA_PLATFORMTHEME: gtk3
