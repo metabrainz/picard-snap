@@ -308,13 +308,13 @@ class PythonPlugin(snapcraft.BasePlugin):
             "requirements", self.options.requirements
         )
 
-        self._pip.download(
-            self.options.python_packages,
-            setup_py_dir=None,
-            constraints=constraints,
-            requirements=requirements,
-            process_dependency_links=self.options.process_dependency_links,
-        )
+        #self._pip.download(
+            #self.options.python_packages,
+            #setup_py_dir=None,
+            #constraints=constraints,
+            #requirements=requirements,
+            #process_dependency_links=self.options.process_dependency_links,
+        #)
 
     def _install_project(self):
         setup_py_dir = self._get_setup_py_dir()
@@ -327,35 +327,35 @@ class PythonPlugin(snapcraft.BasePlugin):
 
         # setup.py is handled in a different step as some projects may
         # need to satisfy dependencies for setup.py to be parsed.
-        wheels = self._pip.wheel(
-            self.options.python_packages,
-            setup_py_dir=None,
-            constraints=constraints,
-            requirements=requirements,
-            process_dependency_links=self.options.process_dependency_links,
-        )
+        #wheels = self._pip.wheel(
+            #self.options.python_packages,
+            #setup_py_dir=None,
+            #constraints=constraints,
+            #requirements=requirements,
+            #process_dependency_links=self.options.process_dependency_links,
+        #)
 
-        if wheels:
-            self._install_wheels(wheels)
+        #if wheels:
+            #self._install_wheels(wheels)
 
         if setup_py_dir is not None:
-            self._pip.download(
-                [],
-                setup_py_dir=setup_py_dir,
-                constraints=constraints,
-                requirements=set(),
-                process_dependency_links=self.options.process_dependency_links,
-            )
-            wheels = self._pip.wheel(
-                [],
-                setup_py_dir=setup_py_dir,
-                constraints=constraints,
-                requirements=set(),
-                process_dependency_links=self.options.process_dependency_links,
-            )
+            #self._pip.download(
+                #[],
+                #setup_py_dir=setup_py_dir,
+                #constraints=constraints,
+                #requirements=set(),
+                #process_dependency_links=self.options.process_dependency_links,
+            #)
+            #wheels = self._pip.wheel(
+                #[],
+                #setup_py_dir=setup_py_dir,
+                #constraints=constraints,
+                #requirements=set(),
+                #process_dependency_links=self.options.process_dependency_links,
+            #)
 
-            if wheels:
-                self._install_wheels(wheels)
+            #if wheels:
+                #self._install_wheels(wheels)
 
             setup_py_path = os.path.join(setup_py_dir, "setup.py")
             if os.path.exists(setup_py_path):
