@@ -50,8 +50,8 @@ plugs:
 parts:
   picard:
     after:
-    - patching
-    - selective-checkout
+      - patching
+      - selective-checkout
 
     source: https://github.com/metabrainz/picard.git
     source-depth: 1000
@@ -92,20 +92,20 @@ parts:
     plugin: make
     make-parameters: ["FLAVOR=qt5"]
     stage-packages:
-    - libxkbcommon0
-    - ttf-ubuntu-font-family
-    - dmz-cursor-theme
-    - light-themes
-    - adwaita-icon-theme
-    - gnome-themes-standard
-    - shared-mime-info
-    - libqt5gui5
-    - libgdk-pixbuf2.0-0
-    - libqt5svg5 # for loading icon themes which are svg
-    - try: [appmenu-qt5] # not available on core18
-    - locales-all
-    - xdg-user-dirs
-    - fcitx-frontend-qt5
+      - libxkbcommon0
+      - ttf-ubuntu-font-family
+      - dmz-cursor-theme
+      - light-themes
+      - adwaita-icon-theme
+      - gnome-themes-standard
+      - shared-mime-info
+      - libqt5gui5
+      - libgdk-pixbuf2.0-0
+      - libqt5svg5 # for loading icon themes which are svg
+      - try: [appmenu-qt5] # not available on core18
+      - locales-all
+      - xdg-user-dirs
+      - fcitx-frontend-qt5
 
   # Code patching to fix another part, when it cannot be solved by other means
   patching:
@@ -114,15 +114,15 @@ parts:
     organize:
       '*': patching/
     prime:
-    - -*
+      - -*
 
   # Check out the tagged release revision if it isn't promoted to the stable channel
   # https://forum.snapcraft.io/t/selective-checkout-check-out-the-tagged-release-revision-if-it-isnt-promoted-to-the-stable-channel/10617
   selective-checkout:
     plugin: nil
     build-packages:
-    - git
+      - git
     stage-snaps:
-    - selective-checkout/latest/edge
+      - selective-checkout/latest/edge
     prime:
-    - -*
+      - -*
