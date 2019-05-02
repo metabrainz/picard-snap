@@ -8,7 +8,7 @@ description: |
 
 grade: stable
 confinement: strict
-icon: picard.svg
+#icon: gui/picard.svg
 base: core18
 adopt-info: picard
 assumes:
