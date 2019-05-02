@@ -20,6 +20,7 @@ apps:
     command: bin/picard
     command-chain:
       - bin/desktop-launch
+    desktop: share/applications/org.musicbrainz.Picard.desktop
     environment:
         DISABLE_WAYLAND: 1
         QT_QPA_PLATFORMTHEME: gtk3
