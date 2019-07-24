@@ -128,6 +128,6 @@ parts:
     build-packages:
       - git
     stage-snaps:
-      - selective-checkout/latest/edge
+      - selective-checkout
     prime:
       - -*
