@@ -66,7 +66,8 @@ parts:
 
       "$SNAPCRAFT_STAGE"/scriptlets/selective-checkout \
         --release-tag-prefix=release- \
-        --beta-tag-pattern='dev.*$'
+        --beta-tag-pattern='dev.*$' \
+        --force-stable
 
     override-build: |
       git apply --verbose "${SNAPCRAFT_STAGE}"/patching/localedir.patch
