@@ -65,8 +65,9 @@ parts:
       snapcraftctl pull
 
       "$SNAPCRAFT_STAGE"/scriptlets/selective-checkout \
-        --stable-tag-pattern=release-[[:digit:]].[[:digit:]].[[:digit:]]+$ \
-        --force-stable
+                        --release-tag-prefix='release-' \
+                        --stable-tag-pattern=^[[:digit:]].[[:digit:]].[[:digit:]]$ \
+                        --force-stable
 
     override-build: |
       git apply --verbose "${SNAPCRAFT_STAGE}"/patching/localedir.patch
