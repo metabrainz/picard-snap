@@ -59,7 +59,7 @@ parts:
       - selective-checkout
 
     source: https://github.com/metabrainz/picard.git
-    source-depth: 1000
+    #source-depth: 1000
     plugin: x-python
     override-pull: |
       snapcraftctl pull
