@@ -1,11 +1,4 @@
 name: picard
-summary: Picard is the official MusicBrainz tagger.
-description: |
-  Picard supports the majority of audio file formats, is capable of using
-  audio fingerprints (AcoustIDs), performing CD lookups and disc ID submissions,
-  and it has excellent Unicode support. Additionally, there are several plugins
-  available that extend Picard's features.
-
 grade: stable
 confinement: strict
 #icon: gui/picard.svg
@@ -16,6 +9,7 @@ assumes:
 
 apps:
   picard:
+    common-id: org.musicbrainz.Picard
     adapter: full
     command: bin/picard
     command-chain:
@@ -61,6 +55,8 @@ parts:
     source: https://github.com/metabrainz/picard.git
     #source-depth: 1000
     plugin: x-python
+    parse-info:
+      - share/metainfo/org.musicbrainz.Picard.appdata.xml
     override-pull: |
       snapcraftctl pull
 
