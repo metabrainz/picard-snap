@@ -1,9 +1,9 @@
 diff --git a/scripts/picard.in b/scripts/picard.in
-index 7580da67..e959fb81 100644
+index 7b67f8ec..4e3190ef 100644
 --- a/scripts/picard.in
 +++ b/scripts/picard.in
 @@ -1,3 +1,3 @@
  #!/usr/bin/env python3
--from picard.tagger import main; main('%(localedir)s', %(autoupdate)s)
-+from picard.tagger import main; main('/usr/share/locale', %(autoupdate)s)
- 
+ from picard.tagger import main
+-main('%(localedir)s', %(autoupdate)s)
++main('/usr/share/locale', %(autoupdate)s)
