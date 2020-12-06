@@ -54,7 +54,7 @@ parts:
 
     source: https://github.com/metabrainz/picard.git
     #source-depth: 1000
-    plugin: x-python
+    plugin: python
     parse-info:
       - share/metainfo/org.musicbrainz.Picard.appdata.xml
     override-pull: |
