@@ -25,6 +25,12 @@ apps:
       - removable-media
       - unity7
 
+slots:
+  session-dbus-interface:
+    interface: dbus
+    name: org.musicbrainz.Picard.desktop
+    bus: session
+
 parts:
   picard:
     after:
