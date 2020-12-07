@@ -1,0 +1,5 @@
+python-dateutil>=2.7.3
+discid
+markdown
+mutagen>=1.37
+PyQt5==5.13.2
