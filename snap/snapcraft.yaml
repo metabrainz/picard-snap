@@ -86,7 +86,3 @@ parts:
       - selective-checkout
     prime:
       - -*
-
-layout:
-    /usr/share/locale:
-        bind: $SNAP/share/locale
