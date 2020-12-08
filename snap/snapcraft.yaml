@@ -25,6 +25,13 @@ apps:
       - removable-media
       - unity7
 
+plugs:
+  # gtk-common-themes support
+  gtk-3-themes:
+    interface: content
+    target: $SNAP/data-dir/themes
+    default-provider: gtk-common-themes:gtk-3-themes
+
 slots:
   session-dbus-interface:
     interface: dbus
@@ -60,12 +67,16 @@ parts:
       - libdiscid0
       - libgettextpo0
 
-      # gtk-common-themes support
-      - qt5-gtk-platformtheme
-
     build-packages:
       - appstream
       - gettext
+
+  # Additional packages for better desktop integration and theming
+  desktop-theming:
+    plugin: nil
+    stage-packages:
+      - qt5-gtk-platformtheme
+      - ttf-ubuntu-font-family
 
   # Code patching to fix another part, when it cannot be solved by other means
   patching:
