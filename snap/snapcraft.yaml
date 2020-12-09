@@ -48,7 +48,7 @@ parts:
     #source-depth: 1000
     plugin: python
     requirements:
-      - "${SNAPCRAFT_STAGE}/patching/requirements.txt"
+      - requirements.txt
     parse-info:
       - share/metainfo/org.musicbrainz.Picard.appdata.xml
     override-pull: |
@@ -62,11 +62,15 @@ parts:
     override-build: |
       git apply --verbose "${SNAPCRAFT_STAGE}"/patching/*.patch
       snapcraftctl build
+    prime:
+      - -lib/python3.*/site-packages/PyQt5*
     stage-packages:
       - libchromaprint-tools
       - libdiscid0
       - libgettextpo0
-
+      - libqt5multimedia5-plugins
+      - python3-pyqt5
+      - python3-pyqt5.qtmultimedia
     build-packages:
       - appstream
       - gettext
