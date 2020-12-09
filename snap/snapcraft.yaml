@@ -32,11 +32,11 @@ plugs:
     target: $SNAP/data-dir/themes
     default-provider: gtk-common-themes:gtk-3-themes
 
-slots:
-  session-dbus-interface:
-    interface: dbus
-    name: org.musicbrainz.Picard.desktop
-    bus: session
+# slots:
+#   session-dbus-interface:
+#     interface: dbus
+#     name: org.musicbrainz.Picard.desktop
+#     bus: session
 
 parts:
   picard:
