@@ -1,0 +1,20 @@
+#!/bin/bash
+
+if [ "$SNAP_ARCH" = "amd64" ]; then
+  ARCH="x86_64-linux-gnu"
+elif [ "$SNAP_ARCH" = "armhf" ]; then
+  ARCH="arm-linux-gnueabihf"
+elif [ "$SNAP_ARCH" = "arm64" ]; then
+  ARCH="aarch64-linux-gnu"
+elif [ "$SNAP_ARCH" = "ppc64el" ]; then
+  ARCH="powerpc64le-linux-gnu"
+else
+  ARCH="$SNAP_ARCH-linux-gnu"
+fi
+
+# Use Gdk-pixbuf loaders from $SNAP, not from $SNAP_DESKTOP_RUNTIME
+# See https://forum.snapcraft.io/t/broken-theming-and-missing-icons-on-gtk-file-picker-using-kde-neon-extension/18937/
+GDK_PIXBUF_MODULEDIR="$SNAP/usr/lib/$ARCH/gdk-pixbuf-2.0/2.10.0/loaders/"
+"$SNAP/usr/lib/$ARCH/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders" --update-cache
+
+exec "$@"

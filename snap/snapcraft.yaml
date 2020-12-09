@@ -24,6 +24,8 @@ apps:
       - pulseaudio
       - removable-media
       - unity7
+    command-chain:
+      - bin/app-launch
 
 plugs:
   # gtk-common-themes support
@@ -84,6 +86,15 @@ parts:
     stage-packages:
       - qt5-gtk-platformtheme
       - ttf-ubuntu-font-family
+
+  # Custom launch scripts
+  command-chain:
+    plugin: dump
+    source: command-chain
+    organize:
+      '*': bin/
+    stage-packages:
+      - librsvg2-common  # For SVG icon support in GTK file picker
 
   # Code patching to fix another part, when it cannot be solved by other means
   patching:
