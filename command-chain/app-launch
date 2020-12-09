@@ -17,4 +17,7 @@ fi
 GDK_PIXBUF_MODULEDIR="$SNAP/usr/lib/$ARCH/gdk-pixbuf-2.0/2.10.0/loaders/"
 "$SNAP/usr/lib/$ARCH/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders" --update-cache
 
+# Make real home available, as we have the home plug connected
+export HOME=$SNAP_REAL_HOME
+
 exec "$@"
