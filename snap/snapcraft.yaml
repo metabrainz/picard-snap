@@ -57,9 +57,9 @@ parts:
       snapcraftctl pull
       "$SNAPCRAFT_STAGE"/scriptlets/selective-checkout \
                         --release-tag-prefix='release-' \
-                        --stable-tag-pattern=^[[:digit:]].[[:digit:]]\(.[[:digit:]]\)?$ \
-                        --beta-tag-pattern=^[[:digit:]].[[:digit:]].[[:digit:]]b[[:digit:]]$ \
-                        --release-candidate-tag-pattern=^[[:digit:]].[[:digit:]].[[:digit:]]rc[[:digit:]]$
+                        --stable-tag-pattern=^[[:digit:]].[[:digit:]]\(.[[:digit:]]\)?$
+                        # --beta-tag-pattern=^[[:digit:]].[[:digit:]].[[:digit:]]b[[:digit:]]$ \
+                        # --release-candidate-tag-pattern=^[[:digit:]].[[:digit:]].[[:digit:]]rc[[:digit:]]$
 
     override-build: |
       git apply --verbose "${SNAPCRAFT_STAGE}"/patching/*.patch
