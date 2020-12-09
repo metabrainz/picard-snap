@@ -47,8 +47,8 @@ parts:
     source: https://github.com/metabrainz/picard.git
     #source-depth: 1000
     plugin: python
-    requirements:
-      - requirements.txt
+    # requirements:
+    #   - requirements.txt
     parse-info:
       - share/metainfo/org.musicbrainz.Picard.appdata.xml
     override-pull: |
@@ -70,6 +70,8 @@ parts:
       - libgettextpo0
       - libqt5multimedia5-plugins
       - python3-aubio  # for the BPM plugin
+      - python3-libdiscid
+      - python3-markdown
       - python3-pyqt5
       - python3-pyqt5.qtmultimedia
     build-packages:
