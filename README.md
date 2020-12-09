@@ -40,16 +40,16 @@ upstream so Picard can authoritatively publish future releases.
   - [x] Create a snap that runs in `devmode`
   - [x] Register the snap in the store, **using the preferred upstream name**
   - [ ] Add a screenshot to this `README.md`
-  - [ ] Publish the `devmode` snap in the Snap store edge channel
+  - [x] Publish the `devmode` snap in the Snap store edge channel
   - [x] Add install instructions to this `README.md`
-  - [ ] Update snap store metadata, icons and screenshots
+  - [x] Update snap store metadata, icons and screenshots
   - [x] Convert the snap to `strict` confinement, or `classic` confinement if it qualifies
   - [x] Publish the confined snap in the Snap store beta channel
   - [x] Update the install instructions in this `README.md`
   - [x] Post a call for testing on the [Snapcraft Forum](https://forum.snapcraft.io) - [link](https://forum.snapcraft.io/t/call-for-testing-musicbrainz-picard/1271)
-  - [ ] Request your GitHub repository is forked to the Snapcrafters organisation and configured for automated builds
+  - [x] Request your GitHub repository is forked to the Snapcrafters organisation and configured for automated builds
   - [ ] Add the provided Snapcraft build badge to this `README.md`
-  - [ ] Publish the snap in the Snap store stable channel
+  - [x] Publish the snap in the Snap store stable channel
   - [ ] Update the install instructions in this `README.md`
   - [ ] Post an announcement in the [Snapcraft Forum](https://forum.snapcraft.io) - [link]()
   - [ ] Submit a pull request or patch upstream that adds snap install documentation - [link]()
