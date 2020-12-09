@@ -1,6 +1,6 @@
 <h1 align="center">
   <img
-  src="https://raw.githubusercontent.com/pachulo/musicbrainz-picard-snap/master/picard.png" alt="MusicBrainz Picard">
+  src="https://raw.githubusercontent.com/phw/musicbrainz-picard-snap/master/snap/gui/picard.svg" alt="MusicBrainz Picard">
   <br />
   MusicBrainz Picard
 </h1>
@@ -67,6 +67,10 @@ If you have any questions, [post in the Snapcraft forum](https://forum.snapcraft
 | [![Marc](http://gravatar.com/avatar/bc0bced65e963eb5c3a16cab8b004431/?s=128)](https://github.com/pachulo/) |
 | :---: |
 | [Marc](https://github.com/pachulo/) |
+
+| [![Philipp](http://gravatar.com/avatar/bc0bced65e963eb5c3a16cab8b004431?s=128)](https://github.com/phw) |
+| :---: |
+| [Philipp](https://github.com/phw) |
 
 <!-- Uncomment and modify this when you have upstream contacts
 ## Upstream
