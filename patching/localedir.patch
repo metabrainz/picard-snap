@@ -7,4 +7,4 @@ index 7b67f8ec..428e608e 100644
 +import os
  from picard.tagger import main
 -main('%(localedir)s', %(autoupdate)s)
-+main(os.path.join(os.environ.get('SNAP', '/usr'), 'share/locale'), %(autoupdate)s)
++main(os.path.join(os.environ.get('SNAP', '/usr'), 'share/locale'), autoupdate=False)
