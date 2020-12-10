@@ -8,11 +8,11 @@
 <p align="center"><b>This is the snap for MusicBrainz Picard</b>, <i>"Picard is the official MusicBrainz tagger"</i>. It works on Ubuntu, Fedora, Debian, and other major Linux
 distributions.</p>
 
-<!-- Uncomment and modify this when you are provided a build status badge
 <p align="center">
-<a href="https://build.snapcraft.io/user/snapcrafters/fork-and-rename-me"><img src="https://build.snapcraft.io/badge/snapcrafters/fork-and-rename-me.svg" alt="Snap Status"></a>
+<a href="https://snapcraft.io/picard">
+  <img alt="Get it from the Snap Store" src="https://snapcraft.io/static/images/badges/en/snap-store-black.svg" />
+</a>
 </p>
--->
 
 ## Install
 
@@ -21,9 +21,7 @@ distributions.</p>
 
 ([Don't have snapd installed?](https://snapcraft.io/docs/core/install))
 
-<!-- Uncomment and modify this when you have a screenshot
-![my-snap-name](screenshot.png?raw=true "my-snap-name")
--->
+![MusicBrainz Picard main window](https://picard-docs.musicbrainz.org/en/_images/mainscreen-linux-gnome.png)
 
 <p align="center">Published for <img src="http://anything.codes/slack-emoji-for-techies/emoji/tux.png" align="top" width="24" /> with :gift_heart: by Snapcrafters</p>
 
@@ -39,7 +37,7 @@ upstream so Picard can authoritatively publish future releases.
   - [x] Update logos and references to `[Project]` and `[my-snap-name]`
   - [x] Create a snap that runs in `devmode`
   - [x] Register the snap in the store, **using the preferred upstream name**
-  - [ ] Add a screenshot to this `README.md`
+  - [x] Add a screenshot to this `README.md`
   - [x] Publish the `devmode` snap in the Snap store edge channel
   - [x] Add install instructions to this `README.md`
   - [x] Update snap store metadata, icons and screenshots
@@ -48,7 +46,7 @@ upstream so Picard can authoritatively publish future releases.
   - [x] Update the install instructions in this `README.md`
   - [x] Post a call for testing on the [Snapcraft Forum](https://forum.snapcraft.io) - [link](https://forum.snapcraft.io/t/call-for-testing-musicbrainz-picard/1271)
   - [x] Request your GitHub repository is forked to the Snapcrafters organisation and configured for automated builds
-  - [ ] Add the provided Snapcraft build badge to this `README.md`
+  - [x] Add the provided Snapcraft build badge to this `README.md`
   - [x] Publish the snap in the Snap store stable channel
   - [ ] Update the install instructions in this `README.md`
   - [ ] Post an announcement in the [Snapcraft Forum](https://forum.snapcraft.io) - [link]()
