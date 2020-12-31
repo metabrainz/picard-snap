@@ -1,0 +1,33 @@
+diff --git a/picard/__init__.py b/picard/__init__.py
+index ba3f0207..e7f773e2 100644
+--- a/picard/__init__.py
++++ b/picard/__init__.py
+@@ -40,7 +40,7 @@ PICARD_ORG_NAME = "MusicBrainz"
+ PICARD_APP_NAME = "Picard"
+ PICARD_DISPLAY_NAME = "MusicBrainz Picard"
+ PICARD_APP_ID = "org.musicbrainz.Picard"
+-PICARD_DESKTOP_NAME = PICARD_APP_ID + ".desktop"
++PICARD_DESKTOP_NAME = "picard_picard.desktop"
+ PICARD_VERSION = Version(2, 6, 0, 'dev', 1)
+
+
+diff --git a/setup.py b/setup.py
+index 433e4124..588938e0 100644
+--- a/setup.py
++++ b/setup.py
+@@ -61,7 +61,6 @@ from setuptools.dist import Distribution
+ from picard import (
+     PICARD_APP_ID,
+     PICARD_APP_NAME,
+-    PICARD_DESKTOP_NAME,
+     PICARD_DISPLAY_NAME,
+     PICARD_VERSION,
+     PICARD_VERSION_STR_SHORT,
+@@ -71,6 +70,7 @@ from picard import (
+ if sys.version_info < (3, 5):
+     sys.exit("ERROR: You need Python 3.5 or higher to use Picard.")
+
++PICARD_DESKTOP_NAME = "org.musicbrainz.Picard.desktop"
+ PACKAGE_NAME = "picard"
+ APPDATA_FILE = PICARD_APP_ID + '.appdata.xml'
+ APPDATA_FILE_TEMPLATE = APPDATA_FILE + '.in'
