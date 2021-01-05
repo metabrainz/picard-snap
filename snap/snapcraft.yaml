@@ -24,8 +24,6 @@ apps:
       - pulseaudio
       - removable-media
       - unity7
-    slots:
-      - dbus-session-interface
     command-chain:
       - bin/app-launch
 
@@ -35,12 +33,6 @@ plugs:
     interface: content
     target: $SNAP/data-dir/themes
     default-provider: gtk-common-themes:gtk-3-themes
-
-slots:
-  dbus-session-interface:
-    interface: dbus
-    name: org.musicbrainz.Picard
-    bus: session
 
 parts:
   picard:
