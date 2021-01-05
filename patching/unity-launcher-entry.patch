@@ -1,0 +1,31 @@
+diff --git a/picard/ui/statusindicator.py b/picard/ui/statusindicator.py
+index 8282d133..1225eaac 100644
+--- a/picard/ui/statusindicator.py
++++ b/picard/ui/statusindicator.py
+@@ -110,8 +110,6 @@ elif not (IS_MACOS or IS_HAIKU):
+ 
+     else:
+ 
+-        from picard import PICARD_DESKTOP_NAME
+-
+         DBUS_INTERFACE = 'com.canonical.Unity.LauncherEntry'
+ 
+         class UnityLauncherEntryService(QObject):
+@@ -120,7 +118,7 @@ elif not (IS_MACOS or IS_HAIKU):
+                 QObject.__init__(self)
+                 self._bus = bus
+                 self._app_id = app_id
+-                self._path = '/'
++                self._path = '/com/canonical/unity/launcherentry/1'
+                 self._progress = 0
+                 self._visible = False
+                 self._dbus_adaptor = UnityLauncherEntryAdaptor(self)
+@@ -177,7 +175,7 @@ elif not (IS_MACOS or IS_HAIKU):
+             def __init__(self, window):
+                 super().__init__()
+                 bus = QDBusConnection.sessionBus()
+-                self._service = UnityLauncherEntryService(bus, PICARD_DESKTOP_NAME)
++                self._service = UnityLauncherEntryService(bus, 'picard_picard.desktop')
+ 
+             @property
+             def is_available(self):
