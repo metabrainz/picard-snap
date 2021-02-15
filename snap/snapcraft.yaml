@@ -4,6 +4,9 @@ confinement: strict
 base: core18
 adopt-info: picard
 
+architectures:
+  - build-on: ['amd64']
+
 apps:
   picard:
     common-id: org.musicbrainz.Picard
