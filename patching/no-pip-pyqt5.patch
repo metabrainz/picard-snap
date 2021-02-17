@@ -1,13 +1,13 @@
 diff --git a/setup.py b/setup.py
-index d26263a6..09243e71 100644
+index e01a7ad4..97eee2c5 100644
 --- a/setup.py
 +++ b/setup.py
 @@ -772,7 +772,7 @@ args = {
          'patch_version': picard_patch_version,
      },
      'scripts': ['scripts/' + PACKAGE_NAME],
--    'install_requires': ['PyQt5', 'mutagen', 'python-dateutil'],
-+    'install_requires': ['mutagen', 'python-dateutil'],
+-    'install_requires': ['PyQt5', 'mutagen', 'python-dateutil', 'fasteners'],
++    'install_requires': ['mutagen', 'python-dateutil', 'fasteners'],
      'python_requires': '~=3.5',
      'classifiers': [
          'License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)',
