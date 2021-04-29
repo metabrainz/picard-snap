@@ -81,14 +81,18 @@ parts:
     override-build: |
       git apply --verbose "${SNAPCRAFT_STAGE}"/patching/*.patch
       snapcraftctl build
+
+    override-prime: |
+      snapcraftctl prime
       # Compile resource caches
-      glib-compile-schemas $SNAPCRAFT_PART_INSTALL/usr/share/glib-2.0/schemas
-      update-mime-database $SNAPCRAFT_PART_INSTALL/usr/share/mime
-      for dir in $SNAPCRAFT_PART_INSTALL/usr/share/icons/*; do
+      glib-compile-schemas $SNAPCRAFT_PRIME/usr/share/glib-2.0/schemas
+      update-mime-database $SNAPCRAFT_PRIME/usr/share/mime
+      for dir in $SNAPCRAFT_PRIME/usr/share/icons/*; do
         if [ -f "$dir/index.theme" ]; then
           gtk-update-icon-cache --force "$dir"
         fi
       done
+
     prime:
       - -lib/python3.*/site-packages/PyQt5*
     # build-environment:
@@ -96,6 +100,7 @@ parts:
     build-packages:
       - appstream
       - gettext
+      - libgdk-pixbuf2.0-0
       - libglib2.0-bin
     stage-packages:
       - libchromaprint-tools
