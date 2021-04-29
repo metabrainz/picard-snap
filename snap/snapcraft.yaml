@@ -17,7 +17,7 @@ apps:
     command: bin/picard
     environment:
       DISABLE_WAYLAND: 1
-      QT_QPA_PLATFORMTHEME: gtk3
+      #QT_QPA_PLATFORMTHEME: gtk3
       PYTHONPATH: "$SNAP/usr/lib/python3/dist-packages"
     plugs:
       - desktop
@@ -60,7 +60,7 @@ parts:
   picard:
     after:
       - desktop-qt5
-      - qt5-gtk-platform
+      # - qt5-gtk-platform
       - qt5-multimedia
       - patching
     source: https://github.com/metabrainz/picard.git
@@ -122,10 +122,10 @@ parts:
       - xdg-user-dirs
       - fcitx-frontend-qt5
 
-  qt5-gtk-platform:
-    plugin: nil
-    stage-packages:
-      - qt5-gtk-platformtheme
+  # qt5-gtk-platform:
+  #   plugin: nil
+  #   stage-packages:
+  #     - qt5-gtk-platformtheme
 
   qt5-multimedia:
     plugin: nil
