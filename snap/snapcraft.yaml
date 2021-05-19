@@ -111,6 +111,7 @@ parts:
       - python3-markdown
       - python3-pyqt5
       - python3-pyqt5.qtmultimedia
+      - python3-yaml
 
   desktop-qt5:
     source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
