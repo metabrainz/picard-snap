@@ -1,0 +1,10 @@
+diff --git a/requirements.txt b/requirements.txt
+index c8d80578..62dde1a3 100644
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -5,5 +5,4 @@ markdown~=3.2
+ mutagen~=1.37
+ pyobjc-core~=6.2; sys_platform == 'darwin'
+ pyobjc-framework-Cocoa~=6.2; sys_platform == 'darwin'
+-PyQt5~=5.10
+ pywin32; sys_platform == 'win32'
