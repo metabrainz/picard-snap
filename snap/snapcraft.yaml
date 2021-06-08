@@ -2,6 +2,7 @@ name: picard
 grade: stable
 confinement: strict
 base: core20
+license: GPL-2.0-or-later
 adopt-info: picard
 
 architectures:
