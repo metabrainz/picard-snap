@@ -1,8 +1,8 @@
 diff --git a/picard/ui/statusindicator.py b/picard/ui/statusindicator.py
-index d794938a..fdb4022d 100644
+index 882e39e9..3318c75d 100644
 --- a/picard/ui/statusindicator.py
 +++ b/picard/ui/statusindicator.py
-@@ -112,8 +112,6 @@ elif not (IS_MACOS or IS_HAIKU):
+@@ -110,8 +110,6 @@ elif not (IS_MACOS or IS_HAIKU):
  
      else:
  
@@ -11,7 +11,7 @@ index d794938a..fdb4022d 100644
          DBUS_INTERFACE = 'com.canonical.Unity.LauncherEntry'
  
          class UnityLauncherEntryService(QObject):
-@@ -179,7 +177,7 @@ elif not (IS_MACOS or IS_HAIKU):
+@@ -177,7 +175,7 @@ elif not (IS_MACOS or IS_HAIKU):
              def __init__(self, window):
                  super().__init__()
                  bus = QDBusConnection.sessionBus()
