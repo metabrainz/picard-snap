@@ -63,6 +63,7 @@ parts:
       - qt5-multimedia
       - patching
     source: https://github.com/metabrainz/picard.git
+    source-tag: release-2.6.4
     #source-depth: 1000
     plugin: python
     # requirements:
