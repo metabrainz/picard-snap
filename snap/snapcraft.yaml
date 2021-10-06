@@ -63,7 +63,6 @@ parts:
       - qt5-multimedia
       - patching
     source: https://github.com/metabrainz/picard.git
-    source-tag: release-2.6.4
     #source-depth: 1000
     plugin: python
     # requirements:
@@ -102,16 +101,14 @@ parts:
       - gettext
       - libgdk-pixbuf2.0-0
       - libglib2.0-bin
+      - python3-wheel
     stage-packages:
       - libchromaprint-tools
       - libdiscid0
       - libgettextpo0
       - python3-aubio  # for the BPM plugin
-      - python3-libdiscid
-      - python3-markdown
       - python3-pyqt5
       - python3-pyqt5.qtmultimedia
-      - python3-yaml
 
   desktop-qt5:
     source: https://github.com/ubuntu/snapcraft-desktop-helpers.git

@@ -1,10 +1,15 @@
 diff --git a/scripts/picard.in b/scripts/picard.in
-index 7b67f8ec..428e608e 100644
+index ab04f554..607af4e7 100644
 --- a/scripts/picard.in
 +++ b/scripts/picard.in
-@@ -1,3 +1,4 @@
+@@ -1,8 +1,9 @@
  #!/usr/bin/env python3
-+import os
- from picard.tagger import main
--main('%(localedir)s', %(autoupdate)s)
-+main(os.path.join(os.environ.get('SNAP', '/usr'), 'share/locale'), autoupdate=False)
+ 
+ try:
++    import os
+     from picard.tagger import main
+-    main('%(localedir)s', %(autoupdate)s)
++    main(os.path.join(os.environ.get('SNAP', '/usr'), 'share/locale'), autoupdate=False)
+ except SystemExit:
+     raise  # Just continue with a normal application exit
+ except:  # noqa: E722,F722 # pylint: disable=bare-except
