@@ -21,7 +21,9 @@ distributions.</p>
 
 ([Don't have snapd installed?](https://snapcraft.io/docs/core/install))
 
-See also the [Download & Install](https://picard-docs.musicbrainz.org/en/getting_started/download.html#installing-with-snap) instructions in the MusicBrainz Picard documentation.
+See also the [Download & Install](https://picard-docs.musicbrainz.org/en/getting_started/download.html#installing-with-snap) instructions in the MusicBrainz Picard documentation. Report any issue
+you have running this snap or using the software to the
+[MusicBrainz Picard issue tracker](https://tickets.metabrainz.org/projects/PICARD/issues).
 
 ![MusicBrainz Picard main window](https://picard-docs.musicbrainz.org/en/_images/mainscreen-linux-gnome.png)
 
