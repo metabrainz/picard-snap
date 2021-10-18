@@ -4,6 +4,11 @@ confinement: strict
 base: core20
 license: GPL-2.0-or-later
 adopt-info: picard
+contact: https://community.metabrainz.org/c/picard
+donation: https://metabrainz.org/donate
+issues: https://tickets.metabrainz.org/projects/PICARD/issues/
+source-code: https://github.com/metabrainz/picard
+website: https://picard.musicbrainz.org/
 
 architectures:
   - build-on: amd64
