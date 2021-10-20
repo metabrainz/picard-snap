@@ -5,7 +5,7 @@
   MusicBrainz Picard
 </h1>
 
-<p align="center"><b>This is the snap for <a href="https://picard.musicbrainz.org/">MusicBrainz Picard</a></b>, the official MusicBrainz tagger". It works on Ubuntu, Fedora, Debian, and other major Linux
+<p align="center">This is the snap for <a href="https://picard.musicbrainz.org/">MusicBrainz Picard</a>, the official MusicBrainz audio tagger. It works on Ubuntu, Fedora, Debian, and other major Linux
 distributions.</p>
 
 <p align="center">
