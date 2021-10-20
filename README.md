@@ -14,6 +14,7 @@ distributions.</p>
 </a>
 </p>
 
+
 ## Install
 
     sudo apt install snapd-xdg-open
@@ -28,9 +29,10 @@ on other platforms.
 
 ![MusicBrainz Picard main window](https://picard-docs.musicbrainz.org/en/_images/mainscreen-linux-gnome.png)
 
+
 ## Reporting issues
 
-Report any issue you have running this snap or using the software to the
-[MusicBrainz Picard issue tracker](https://tickets.metabrainz.org/projects/PICARD/issues).
-General questions about using this software can be discussed in the
-[MetaBrainz community forums](https://community.metabrainz.org/c/picard).
+Please report all bugs and feature requests in the
+[MusicBrainz issue tracker](https://tickets.metabrainz.org/projects/PICARD/issues).
+If you need support in using Picard please read the [documentation](https://picard-docs.musicbrainz.org/)
+first and have a look at the [MusicBrainz community forums](https://community.metabrainz.org/c/picard).
