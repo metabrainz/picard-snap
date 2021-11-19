@@ -143,6 +143,7 @@ parts:
     plugin: nil
     stage-packages:
       - qt5-gtk-platformtheme
+      - librsvg2-common  # For SVG icon support in GTK file picker
 
   qt5-multimedia:
     plugin: nil
@@ -157,8 +158,6 @@ parts:
     source: command-chain
     organize:
       '*': bin/
-    stage-packages:
-      - librsvg2-common  # For SVG icon support in GTK file picker
 
   # Code patching to fix another part, when it cannot be solved by other means
   patching:
@@ -176,7 +175,7 @@ parts:
   essentia-music-extractor:
     plugin: dump
     source:
-      - on amd64: http://ftp.acousticbrainz.org/pub/acousticbrainz/essentia-extractor-v2.1_beta2-linux-x86_64.tar.gz
+      - on amd64: https://ftp.acousticbrainz.org/pub/acousticbrainz/essentia-extractor-v2.1_beta2-linux-x86_64.tar.gz
     source-type: tar
     organize:
       'streaming_extractor_music': 'bin/streaming_extractor_music'
