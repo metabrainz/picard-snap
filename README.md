@@ -30,7 +30,7 @@ on other platforms.
 ![MusicBrainz Picard main window](https://picard-docs.musicbrainz.org/en/_images/mainscreen-linux-gnome.png)
 
 
-## Reporting issues
+## Support and issue reporting
 
 Please report all bugs and feature requests in the
 [MusicBrainz issue tracker](https://tickets.metabrainz.org/projects/PICARD/issues).
