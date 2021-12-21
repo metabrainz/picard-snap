@@ -1,5 +1,5 @@
 diff --git a/requirements.txt b/requirements.txt
-index 09f1f9d2..457fb945 100644
+index 6736b0f3..e7898a20 100644
 --- a/requirements.txt
 +++ b/requirements.txt
 @@ -6,6 +6,5 @@ mutagen~=1.37
@@ -8,4 +8,4 @@ index 09f1f9d2..457fb945 100644
  pyobjc-framework-Cocoa~=6.2; sys_platform == 'darwin'
 -PyQt5~=5.10
  pywin32; sys_platform == 'win32'
- pyyaml~=5.1
+ pyyaml>=5.1, <7
