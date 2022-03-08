@@ -170,16 +170,6 @@ parts:
     prime:
       - -*
 
-  # Essentia music extractor for AcousticBrainz submission. The AcousticBrainz project
-  # recommends using the official binaries.
-  essentia-music-extractor:
-    plugin: dump
-    source:
-      - on amd64: https://ftp.acousticbrainz.org/pub/acousticbrainz/essentia-extractor-v2.1_beta2-linux-x86_64.tar.gz
-    source-type: tar
-    organize:
-      'streaming_extractor_music': 'bin/streaming_extractor_music'
-
   # Check out the tagged release revision if it isn't promoted to the stable channel
   # https://forum.snapcraft.io/t/selective-checkout-check-out-the-tagged-release-revision-if-it-isnt-promoted-to-the-stable-channel/10617
   selective-checkout:
