@@ -1,7 +1,7 @@
 name: picard
 grade: stable
 confinement: strict
-base: core22
+base: core20
 license: GPL-2.0-or-later
 adopt-info: picard
 contact: https://community.metabrainz.org/c/picard
@@ -124,7 +124,7 @@ parts:
       - dpkg-dev
     stage-packages:
       - libxkbcommon0
-      - fonts-ubuntu
+      - ttf-ubuntu-font-family
       - dmz-cursor-theme
       - light-themes
       - adwaita-icon-theme
