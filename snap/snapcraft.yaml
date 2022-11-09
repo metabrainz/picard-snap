@@ -66,7 +66,7 @@ parts:
       - desktop-qt5
       - qt5-gtk-platform
       - qt5-multimedia
-      - patching
+      - selective-checkout
     source: https://github.com/metabrainz/picard.git
     #source-depth: 1000
     plugin: python
@@ -83,7 +83,7 @@ parts:
         # --release-candidate-tag-pattern="[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+rc[[:digit:]]+$"
 
     override-build: |
-      git apply --verbose "${SNAPCRAFT_STAGE}"/patching/*.patch
+      git apply --verbose "${SNAPCRAFT_PROJECT_DIR}"/patching/*.patch
       snapcraftctl build
 
     override-prime: |
@@ -158,17 +158,6 @@ parts:
     source: command-chain
     organize:
       '*': bin/
-
-  # Code patching to fix another part, when it cannot be solved by other means
-  patching:
-    after:
-      - selective-checkout
-    source: patching
-    plugin: dump
-    organize:
-      '*': patching/
-    prime:
-      - -*
 
   # Check out the tagged release revision if it isn't promoted to the stable channel
   # https://forum.snapcraft.io/t/selective-checkout-check-out-the-tagged-release-revision-if-it-isnt-promoted-to-the-stable-channel/10617
