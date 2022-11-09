@@ -66,6 +66,7 @@ parts:
       - desktop-qt5
       - qt5-gtk-platform
       - qt5-multimedia
+      - rsgain
       - selective-checkout
     source: https://github.com/metabrainz/picard.git
     #source-depth: 1000
@@ -149,6 +150,45 @@ parts:
       - gstreamer1.0-plugins-bad
       - gstreamer1.0-plugins-good
       - libqt5multimedia5-plugins
+
+  rsgain:
+    plugin: cmake
+    after:
+     - taglib
+    source: https://github.com/complexlogic/rsgain/releases/download/v3.1/rsgain-3.1-source.tar.xz
+    source-type: tar
+    source-checksum: sha256/c1ab2c2162c1046786254090f939d60da87994efad5715dde68aa5247f33eaa3
+    cmake-parameters:
+      - -DCMAKE_INSTALL_PREFIX=/usr
+    build-packages:
+      - build-essential
+      - pkg-config
+      - libebur128-dev
+      - libavformat-dev
+      - libavcodec-dev
+      - libswresample-dev
+      - libavutil-dev
+      - libfmt-dev
+      - libinih-dev
+    stage-packages:
+      - libavformat58
+      - libbluray2
+      - libebur128-1
+      - libinih1
+      - libssh-gcrypt-4
+
+  taglib:
+    plugin: cmake
+    source: https://taglib.org/releases/taglib-1.13.tar.gz
+    source-type: tar
+    source-checksum: sha256/58f08b4db3dc31ed152c04896ee9172d22052bc7ef12888028c01d8b1d60ade0
+    cmake-parameters:
+      - -DCMAKE_INSTALL_PREFIX=/usr
+    build-packages:
+      - build-essential
+    prime:
+      - -usr/bin/taglib-config
+      - -usr/include/taglib/*
 
   # Custom launch scripts
   command-chain:
