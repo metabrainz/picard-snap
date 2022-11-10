@@ -163,7 +163,7 @@ parts:
       - -DCMAKE_INSTALL_PREFIX=/usr
     override-build: |
       pushd ../src
-      git apply --verbose "${SNAPCRAFT_PROJECT_DIR}"/patching/rsgain/*.patch
+      patch -p1 < ../picard-snap/patching/rsgain/taglib-1.11.patch
       popd
       snapcraftctl build
     build-packages:
