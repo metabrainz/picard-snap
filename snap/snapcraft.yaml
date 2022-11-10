@@ -98,6 +98,9 @@ parts:
 
     prime:
       - -lib/python3.*/site-packages/PyQt5*
+      - -usr/bin/dh_numpy3
+      - -usr/bin/f2py3*
+      - -usr/include/*
     # build-environment:
     #   - PYTHONPATH: "$SNAPCRAFT_PART_INSTALL/usr/lib/python3/dist-packages"
     build-packages:
