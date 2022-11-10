@@ -12,6 +12,10 @@ else
   ARCH="$SNAP_ARCH-linux-gnu"
 fi
 
+# Extend LD_LIBRARY_PATH for libblas and liblapack
+# Needed by aubio / numby for the BPM plugin
+LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$SNAP/usr/lib/$ARCH/blas::$SNAP/usr/lib/$ARCH/lapack"
+
 # Use Gdk-pixbuf loaders from $SNAP, not from $SNAP_DESKTOP_RUNTIME
 # See https://forum.snapcraft.io/t/broken-theming-and-missing-icons-on-gtk-file-picker-using-kde-neon-extension/18937/
 GDK_PIXBUF_MODULEDIR="$SNAP/usr/lib/$ARCH/gdk-pixbuf-2.0/2.10.0/loaders/"
