@@ -157,9 +157,9 @@ parts:
 
   rsgain:
     plugin: cmake
-    source: https://github.com/complexlogic/rsgain/releases/download/v3.1.1/rsgain-3.1.1-source.tar.xz
+    source: https://github.com/complexlogic/rsgain/releases/download/v3.1/rsgain-3.1-source.tar.xz
     source-type: tar
-    source-checksum: sha256/0c9efdf7433943f2e3674a6859eb72c80fede333b5e86151eaa0492e83923d5a
+    source-checksum: sha256/c1ab2c2162c1046786254090f939d60da87994efad5715dde68aa5247f33eaa3
     cmake-parameters:
       - -DCMAKE_INSTALL_PREFIX=/usr
     override-build: |
