@@ -69,8 +69,8 @@ parts:
       - rsgain
       - selective-checkout
     source: https://github.com/metabrainz/picard.git
-    source-tag: release-2.8.5
-    source-depth: 1
+    # source-tag: release-2.8.5
+    # source-depth: 1
     plugin: python
     # requirements:
     #   - requirements.txt
@@ -79,11 +79,11 @@ parts:
 
     override-build: |
       git apply --verbose "${SNAPCRAFT_PROJECT_DIR}"/patching/picard/*.patch
-      # "$SNAPCRAFT_STAGE"/scriptlets/selective-checkout \
-      #   --release-tag-prefix="release-" \
-      #   --stable-tag-pattern="[[:digit:]]+\.[[:digit:]]+(\.[[:digit:]]+)?$" \
-      #   --beta-tag-pattern="[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+b[[:digit:]]+$"
-      #   # --release-candidate-tag-pattern="[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+rc[[:digit:]]+$"
+      "$SNAPCRAFT_STAGE"/scriptlets/selective-checkout \
+        --release-tag-prefix="release-" \
+        --stable-tag-pattern="[[:digit:]]+\.[[:digit:]]+(\.[[:digit:]]+)?$" \
+        --beta-tag-pattern="[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+b[[:digit:]]+$"
+        # --release-candidate-tag-pattern="[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+rc[[:digit:]]+$"
       snapcraftctl build
 
     override-prime: |
