@@ -133,6 +133,7 @@ parts:
       - libxkbcommon0
       - light-themes
       - locales-all
+      - qtwayland5
       - shared-mime-info
       - xdg-user-dirs
 
