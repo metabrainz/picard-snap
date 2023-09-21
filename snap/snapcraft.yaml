@@ -1,7 +1,7 @@
 name: picard
 grade: stable
 confinement: strict
-base: core20
+base: core22
 license: GPL-2.0-or-later
 adopt-info: picard
 contact: https://community.metabrainz.org/c/picard
@@ -76,24 +76,21 @@ parts:
     parse-info:
       - share/metainfo/org.musicbrainz.Picard.appdata.xml
 
-    override-pull: |
-      snapcraftctl pull
-      "$SNAPCRAFT_STAGE"/scriptlets/selective-checkout \
+    override-build: |
+      "$CRAFT_STAGE"/scriptlets/selective-checkout \
         --release-tag-prefix="release-" \
         --stable-tag-pattern="[[:digit:]]+\.[[:digit:]]+(\.[[:digit:]]+)?$" \
         --beta-tag-pattern="[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+b[[:digit:]]+$" \
         --release-candidate-tag-pattern="[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+rc[[:digit:]]+$"
-
-    override-build: |
       git apply --verbose "${SNAPCRAFT_PROJECT_DIR}"/patching/picard/*.patch
-      snapcraftctl build
+      craftctl default
 
     override-prime: |
-      snapcraftctl prime
+      craftctl default
       # Compile resource caches
-      glib-compile-schemas $SNAPCRAFT_PRIME/usr/share/glib-2.0/schemas
-      update-mime-database $SNAPCRAFT_PRIME/usr/share/mime
-      for dir in $SNAPCRAFT_PRIME/usr/share/icons/*; do
+      glib-compile-schemas $CRAFT_PRIME/usr/share/glib-2.0/schemas
+      update-mime-database $CRAFT_PRIME/usr/share/mime
+      for dir in $CRAFT_PRIME/usr/share/icons/*; do
         if [ -f "$dir/index.theme" ]; then
           gtk-update-icon-cache --force "$dir"
         fi
@@ -105,7 +102,7 @@ parts:
       - -usr/bin/f2py3*
       - -usr/include/*
     # build-environment:
-    #   - PYTHONPATH: "$SNAPCRAFT_PART_INSTALL/usr/lib/python3/dist-packages"
+    #   - PYTHONPATH: "$CRAFT_PART_INSTALL/usr/lib/python3/dist-packages"
     build-packages:
       - appstream
       - gettext
@@ -133,6 +130,7 @@ parts:
       - adwaita-icon-theme
       - dmz-cursor-theme
       - fcitx-frontend-qt5
+      - fonts-ubuntu
       - gnome-themes-standard
       - libgdk-pixbuf2.0-0
       - libqt5gui5
@@ -141,7 +139,6 @@ parts:
       - light-themes
       - locales-all
       - shared-mime-info
-      - ttf-ubuntu-font-family
       - xdg-user-dirs
 
   qt5-gtk-platform:
@@ -179,6 +176,7 @@ parts:
       - libavformat58
       - libbluray2
       - libebur128-1
+      - libfmt8
       - libinih1
       - libssh-gcrypt-4
       - libtag1v5
