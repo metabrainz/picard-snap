@@ -70,8 +70,6 @@ parts:
     # source-tag: release-2.8.5
     # source-depth: 1
     plugin: python
-    # requirements:
-    #   - requirements.txt
     parse-info:
       - share/metainfo/org.musicbrainz.Picard.appdata.xml
 
@@ -100,8 +98,6 @@ parts:
       - -usr/bin/dh_numpy3
       - -usr/bin/f2py3*
       - -usr/include/*
-    # build-environment:
-    #   - PYTHONPATH: "$CRAFT_PART_INSTALL/usr/lib/python3/dist-packages"
     build-packages:
       - appstream
       - gettext
