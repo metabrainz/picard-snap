@@ -93,9 +93,11 @@ parts:
         fi
       done
 
-      # On arm libde265.so contains the executable stack, causing snapcraft
+      # On armhf libde265.so contains the executable stack, causing snapcraft
       # validation errors.
-      execstack --clear-execstack usr/lib/*/libde265.so.*
+      if [ "$CRAFT_TARGET_ARCH" -eq "armhf" ]; then
+        execstack --clear-execstack usr/lib/*/libde265.so.*
+      fi
 
     prime:
       - -lib/python3.*/site-packages/PyQt5*
