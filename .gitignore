@@ -1,6 +1,13 @@
+# Snapcraft
 parts/
 prime/
 stage/
 *.snap
 snap/.snapcraft/
 snap/plugins/__pycache__/
+
+# IDE config files
+.vscode/
+
+# Other files
+*~
