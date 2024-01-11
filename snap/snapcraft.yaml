@@ -67,7 +67,7 @@ parts:
       - rsgain
       - selective-checkout
     source: https://github.com/metabrainz/picard.git
-    source-branch: 2.10.x
+    source-branch: 2.x
     # source-tag: release-2.8.5
     # source-depth: 1
     plugin: python
