@@ -1,12 +1,12 @@
 diff --git a/requirements.txt b/requirements.txt
-index 0a58b0818..666c12d5b 100644
+index aa84e2685..19cb57f80 100644
 --- a/requirements.txt
 +++ b/requirements.txt
 @@ -5,8 +5,6 @@ mutagen~=1.37
  PyJWT~=2.0
- pyobjc-core>=6.2, <10; sys_platform == 'darwin'
- pyobjc-framework-Cocoa>=6.2, <10; sys_platform == 'darwin'
--PyQt5-sip<=12.9.1; python_version < '3.7'
+ pyobjc-core>=6.2, <11; sys_platform == 'darwin'
+ pyobjc-framework-Cocoa>=6.2, <11; sys_platform == 'darwin'
+-PyQt5-sip<=12.15.0; python_version < '3.9'
 -PyQt5~=5.11
  python-dateutil~=2.7
  pywin32; sys_platform == 'win32'
