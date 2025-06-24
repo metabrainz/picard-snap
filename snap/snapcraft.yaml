@@ -119,6 +119,7 @@ parts:
       - python3-aubio  # for the BPM plugin
       - python3-pyqt5
       - python3-pyqt5.qtmultimedia
+      - python3-zstandard  # for the xqaf plugin
 
   desktop-qt5:
     source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
