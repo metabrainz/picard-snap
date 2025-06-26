@@ -116,6 +116,7 @@ parts:
       - -usr/bin/dh_numpy3
       - -usr/bin/f2py3*
       - -usr/include/*
+      - -usr/lib/x86_64-linux-gnu/pkgconfig/*
     build-packages:
       - appstream
       - execstack
@@ -125,7 +126,6 @@ parts:
       - python3-wheel
     stage-packages:
       - libchromaprint-tools
-      - libdiscid0
       - libgettextpo0
       - python3-aubio  # for the BPM plugin
       - python3-pyqt5
@@ -169,6 +169,17 @@ parts:
       - gstreamer1.0-plugins-bad
       - gstreamer1.0-plugins-good
       - libqt5multimedia5-plugins
+
+  libdiscid:
+    plugin: cmake
+    source: https://data.metabrainz.org/pub/musicbrainz/libdiscid/libdiscid-0.6.5.tar.gz
+    source-type: tar
+    source-checksum: sha256/72dbb493e07336418fe2056f0ebc7ce544eedb500bb896cc1cc04bd078c2d530
+    cmake-parameters:
+      - -DCMAKE_INSTALL_PREFIX=/usr
+    prime:
+      - -usr/include/*
+      - -usr/lib/x86_64-linux-gnu/pkgconfig/*
 
   rsgain:
     plugin: cmake
