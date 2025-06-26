@@ -147,7 +147,7 @@ parts:
       - fcitx-frontend-qt5
       - fonts-ubuntu
       - libgdk-pixbuf2.0-0
-      - libqt5gui5
+      - libqt5gui5t64
       - libqt5svg5  # for loading icon themes which are svg
       - libxkbcommon0
       - light-themes
