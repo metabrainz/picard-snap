@@ -64,7 +64,6 @@ parts:
       - desktop-qt5
       - qt5-gtk-platform
       - qt5-multimedia
-      - rsgain
       - selective-checkout
     source: https://github.com/metabrainz/picard.git
     source-branch: 2.x
