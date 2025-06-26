@@ -42,6 +42,18 @@ apps:
       - bin/desktop-launch
       - bin/app-launch
 
+  fpcalc:
+    command: usr/bin/fpcalc
+    plugs:
+      - home
+      - removable-media
+
+  rsgain:
+    command: usr/bin/rsgain
+    plugs:
+      - home
+      - removable-media
+
 plugs:
   # Support for common GTK themes
   # https://forum.snapcraft.io/t/how-to-use-the-system-gtk-theme-via-the-gtk-common-themes-snap/6235
