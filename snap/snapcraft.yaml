@@ -1,7 +1,7 @@
 name: picard
 grade: stable
 confinement: strict
-base: core22
+base: core24
 license: GPL-2.0-or-later
 adopt-info: picard
 contact: https://community.metabrainz.org/c/picard
@@ -10,10 +10,10 @@ issues: https://tickets.metabrainz.org/projects/PICARD/issues/
 source-code: https://github.com/metabrainz/picard
 website: https://picard.musicbrainz.org/
 
-architectures:
-  - build-on: amd64
-  - build-on: arm64
-  - build-on: armhf
+platforms:
+  amd64:
+  arm64:
+  armhf:
 
 apps:
   picard:
@@ -96,7 +96,7 @@ parts:
 
       # On armhf libde265.so contains the executable stack, causing snapcraft
       # validation errors.
-      if [ "$CRAFT_TARGET_ARCH" = "armhf" ]; then
+      if [ "$CRAFT_ARCH_BUILD_FOR" = "armhf" ]; then
         execstack --clear-execstack usr/lib/*/libde265.so.*
       fi
 
@@ -117,11 +117,9 @@ parts:
       - libdiscid0
       - libgettextpo0
       - python3-aubio  # for the BPM plugin
-      - python3-cffi
       - python3-pyqt5
       - python3-pyqt5.qtmultimedia
-    python-packages:
-      - zstandard
+      - python3-zstandard
 
   desktop-qt5:
     source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
@@ -137,7 +135,6 @@ parts:
       - dmz-cursor-theme
       - fcitx-frontend-qt5
       - fonts-ubuntu
-      - gnome-themes-standard
       - libgdk-pixbuf2.0-0
       - libqt5gui5
       - libqt5svg5  # for loading icon themes which are svg
@@ -147,6 +144,7 @@ parts:
       - qtwayland5
       - shared-mime-info
       - xdg-user-dirs
+      - xkb-data
 
   qt5-gtk-platform:
     plugin: nil
@@ -180,10 +178,10 @@ parts:
       - libtag1-dev
       - pkg-config
     stage-packages:
-      - libavformat58
+      - libavformat60
       - libbluray2
       - libebur128-1
-      - libfmt8
+      - libfmt9
       - libinih1
       - libssh-gcrypt-4
       - libtag1v5
