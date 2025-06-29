@@ -108,7 +108,8 @@ parts:
       # On armhf libde265.so contains the executable stack, causing snapcraft
       # validation errors.
       if [ "$CRAFT_ARCH_BUILD_FOR" = "armhf" ]; then
-        execstack --clear-execstack usr/lib/*/libde265.so.*
+        execstack --clear-execstack usr/lib/arm-linux-gnueabihf/libde265.so.*
+        execstack --clear-execstack usr/lib/arm-linux-gnueabihf/libdirect-1.7.so.*
       fi
 
     prime:
