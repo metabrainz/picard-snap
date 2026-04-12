@@ -49,6 +49,7 @@ parts:
   picard:
     after:
       - plugin-requirements
+      - pyqt6
       - selective-checkout
     source: https://github.com/metabrainz/picard.git
     source-branch: master
@@ -68,7 +69,8 @@ parts:
       craftctl default
 
     prime:
-      - -lib/python3*/site-packages/PyQt6-Qt6*
+      - -lib/python3*/site-packages/PyQt6*
+      - -lib/python3*/site-packages/pyqt6*
       - -usr/bin/dh_numpy3
       - -usr/bin/f2py3*
       - -usr/include/*
@@ -85,8 +87,42 @@ parts:
       - gstreamer1.0-plugins-good
       - libchromaprint-tools
       - libgettextpo0
-      - python3-pyqt6
-      - python3-pyqt6.qtmultimedia
+
+  pyqt6:
+    plugin: nil
+    source: https://files.pythonhosted.org/packages/96/03/e756f52e8b0d7bb5527baf8c46d59af0746391943bdb8655acba22ee4168/pyqt6-6.10.2.tar.gz
+    source-type: tar
+    source-checksum: sha256/6c0db5d8cbb9a3e7e2b5b51d0ff3f283121fa27b864db6d2f35b663c9be5cc83
+    build-snaps:
+      - kde-qt6-core24-sdk
+    build-packages:
+      - libvulkan-dev
+    override-build: |
+      echo "[tool.sip.builder]" >> pyproject.toml
+      echo "qmake = \"/snap/kde-qt6-core24-sdk/current/usr/bin/qt6/qmake\"" >> pyproject.toml
+      pip install --break-system-packages PyQt6-sip PyQt-builder
+      echo $LD_LIBRARY_PATH
+      export LD_LIBRARY_PATH="/snap/kde-qt6-core24-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$LD_LIBRARY_PATH"
+      sip-install \
+        --qt-shared \
+        --concatenate=1 \
+        --confirm-license \
+        --debug \
+        --verbose \
+        --jobs="$CRAFT_PARALLEL_BUILD_COUNT" \
+        --target-dir="$CRAFT_PART_INSTALL/usr/lib/python3/dist-packages" \
+        --enable=QtCore \
+        --enable=QtDBus \
+        --enable=QtGui \
+        --enable=QtMultimedia \
+        --enable=QtNetwork \
+        --enable=QtWidgets \
+        --no-dbus-python \
+        --no-designer-plugin \
+        --no-docstrings \
+        --no-qml-plugin \
+        --no-tools
+      mv /usr/local/lib/python3.12/dist-packages/PyQt6/sip.cpython-*.so "$CRAFT_PART_INSTALL/usr/lib/python3/dist-packages/PyQt6"
 
   # Separate dependencies needed for some Picard plugins
   plugin-requirements:
