@@ -13,33 +13,24 @@ website: https://picard.musicbrainz.org/
 platforms:
   amd64:
   arm64:
-  armhf:
 
 apps:
   picard:
+    extensions:
+      - kde-neon-6
     common-id: org.musicbrainz.Picard
     command: bin/picard
     environment:
       QT_QPA_PLATFORMTHEME: gtk3
       PYTHONPATH: "$SNAP/usr/lib/python3/dist-packages"
     plugs:
-      - desktop
-      - desktop-legacy
-      - wayland
-      - x11
       - gsettings
-      - home
-      - network
-      - network-bind
-      - network-manager-observe
-      - opengl
-      - optical-drive
-      - audio-playback
+      - home  # At a minimum users should be allowed to tag files on their home directory
+      - network-manager-observe  # Used by Qt6, required to avoid warnings on startup
+      - optical-drive  # CD lookup support
       - pulseaudio  # For eventual backwards compatibility only
-      - removable-media
-      - unity7
+      - removable-media  # Tagging files on external media is a common use case
     command-chain:
-      - bin/desktop-launch
       - bin/app-launch
 
   fpcalc:
@@ -54,32 +45,14 @@ apps:
       - home
       - removable-media
 
-plugs:
-  # Support for common GTK themes
-  # https://forum.snapcraft.io/t/how-to-use-the-system-gtk-theme-via-the-gtk-common-themes-snap/6235
-  gtk-3-themes:
-    interface: content
-    target: $SNAP/data-dir/themes
-    default-provider: gtk-common-themes
-  icon-themes:
-    interface: content
-    target: $SNAP/data-dir/icons
-    default-provider: gtk-common-themes
-  sound-themes:
-    interface: content
-    target: $SNAP/data-dir/sounds
-    default-provider: gtk-common-themes
-
 parts:
   picard:
     after:
-      - desktop-qt5
-      - qt5-gtk-platform
-      - qt5-multimedia
+      - plugin-requirements
       - selective-checkout
     source: https://github.com/metabrainz/picard.git
-    source-branch: 2.x
-    # source-tag: release-2.8.5
+    source-branch: master
+    # source-tag: release-3.0.0a4
     # source-depth: 1
     plugin: python
     parse-info:
@@ -94,26 +67,8 @@ parts:
       git apply --verbose "${SNAPCRAFT_PROJECT_DIR}"/patching/picard/*.patch
       craftctl default
 
-    override-prime: |
-      craftctl default
-      # Compile resource caches
-      glib-compile-schemas $CRAFT_PRIME/usr/share/glib-2.0/schemas
-      update-mime-database $CRAFT_PRIME/usr/share/mime
-      for dir in $CRAFT_PRIME/usr/share/icons/*; do
-        if [ -f "$dir/index.theme" ]; then
-          gtk-update-icon-cache --force "$dir"
-        fi
-      done
-
-      # On armhf libde265.so contains the executable stack, causing snapcraft
-      # validation errors.
-      if [ "$CRAFT_ARCH_BUILD_FOR" = "armhf" ]; then
-        execstack --clear-execstack usr/lib/arm-linux-gnueabihf/libde265.so.*
-        execstack --clear-execstack usr/lib/arm-linux-gnueabihf/libdirect-1.7.so.*
-      fi
-
     prime:
-      - -lib/python3.*/site-packages/PyQt5*
+      - -lib/python3*/site-packages/PyQt6-Qt6*
       - -usr/bin/dh_numpy3
       - -usr/bin/f2py3*
       - -usr/include/*
@@ -126,50 +81,19 @@ parts:
       - libglib2.0-bin
       - python3-wheel
     stage-packages:
-      - libchromaprint-tools
-      - libgettextpo0
-      - python3-aubio  # for the BPM plugin
-      - python3-pyqt5
-      - python3-pyqt5.qtmultimedia
-      - python3-zstandard
-
-  desktop-qt5:
-    source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
-    source-subdir: qt
-    plugin: make
-    make-parameters: ["FLAVOR=qt5"]
-    build-packages:
-      - build-essential
-      - qtbase5-dev
-      - dpkg-dev
-    stage-packages:
-      - adwaita-icon-theme
-      - dmz-cursor-theme
-      - fcitx-frontend-qt5
-      - fonts-ubuntu
-      - libgdk-pixbuf2.0-0
-      - libqt5gui5t64
-      - libqt5svg5  # for loading icon themes which are svg
-      - libxkbcommon0
-      - light-themes
-      - locales-all
-      - qtwayland5
-      - shared-mime-info
-      - xdg-user-dirs
-      - xkb-data
-
-  qt5-gtk-platform:
-    plugin: nil
-    stage-packages:
-      - librsvg2-common  # For SVG icon support in GTK file picker
-      - qt5-gtk-platformtheme
-
-  qt5-multimedia:
-    plugin: nil
-    stage-packages:
       - gstreamer1.0-plugins-bad
       - gstreamer1.0-plugins-good
-      - libqt5multimedia5-plugins
+      - libchromaprint-tools
+      - libgettextpo0
+      - python3-pyqt6
+      - python3-pyqt6.qtmultimedia
+
+  # Separate dependencies needed for some Picard plugins
+  plugin-requirements:
+    plugin: nil
+    stage-packages:
+      - python3-aubio  # for the BPM plugin
+      - python3-zstandard
 
   libdiscid:
     plugin: cmake

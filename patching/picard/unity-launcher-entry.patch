@@ -1,22 +1,22 @@
-diff --git a/picard/ui/statusindicator.py b/picard/ui/statusindicator.py
-index d794938a..fdb4022d 100644
---- a/picard/ui/statusindicator.py
-+++ b/picard/ui/statusindicator.py
-@@ -112,8 +112,6 @@ elif not (IS_MACOS or IS_HAIKU):
+diff --git a/picard/ui/statusindicator/unity.py b/picard/ui/statusindicator/unity.py
+index 64ab8e388..7fbe6779b 100644
+--- a/picard/ui/statusindicator/unity.py
++++ b/picard/ui/statusindicator/unity.py
+@@ -31,8 +31,6 @@ from PyQt6.QtDBus import (
+     QDBusMessage,
+ )
  
-     else:
- 
--        from picard import PICARD_DESKTOP_NAME
+-from picard import PICARD_DESKTOP_NAME
 -
-         DBUS_INTERFACE = 'com.canonical.Unity.LauncherEntry'
+ from . import AbstractProgressStatusIndicator
  
-         class UnityLauncherEntryService(QObject):
-@@ -179,7 +177,7 @@ elif not (IS_MACOS or IS_HAIKU):
-             def __init__(self, window):
-                 super().__init__()
-                 bus = QDBusConnection.sessionBus()
--                self._service = UnityLauncherEntryService(bus, PICARD_DESKTOP_NAME)
-+                self._service = UnityLauncherEntryService(bus, 'picard_picard.desktop')
  
-             @property
-             def is_available(self):
+@@ -104,7 +102,7 @@ class UnityLauncherEntryStatusIndicator(AbstractProgressStatusIndicator):
+     def __init__(self, window):
+         super().__init__()
+         bus = QDBusConnection.sessionBus()
+-        self._service = UnityLauncherEntryService(bus, PICARD_DESKTOP_NAME)
++        self._service = UnityLauncherEntryService(bus, 'picard_picard.desktop')
+ 
+     @property
+     def is_available(self):
