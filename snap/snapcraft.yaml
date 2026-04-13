@@ -21,7 +21,6 @@ apps:
     common-id: org.musicbrainz.Picard
     command: bin/picard
     environment:
-      QT_QPA_PLATFORMTHEME: gtk3
       PYTHONPATH: "$SNAP/usr/lib/python3/dist-packages"
     plugs:
       - gsettings
@@ -117,9 +116,6 @@ parts:
       - -usr/lib/*-linux-gnu/libxcb-glx.so*
       - -usr/lib/*-linux-gnu/libXxf86vm.so*
       - -usr/lib/*-linux-gnu/libzvbi-chains.so*
-    build-packages:
-      - appstream
-      - gettext
     stage-packages:
       - gstreamer1.0-plugins-bad
       - gstreamer1.0-plugins-good
