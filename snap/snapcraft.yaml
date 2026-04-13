@@ -48,7 +48,6 @@ apps:
 parts:
   picard:
     after:
-      - plugin-requirements
       - pyqt6
       - selective-checkout
     source: https://github.com/metabrainz/picard.git
@@ -69,24 +68,62 @@ parts:
       craftctl default
 
     prime:
+      # PyQt installed from requirements, exclude as the snap includes its own PyQt build
       - -lib/python3*/site-packages/PyQt6*
       - -lib/python3*/site-packages/pyqt6*
-      - -usr/bin/dh_numpy3
-      - -usr/bin/f2py3*
+      # Exclude development files
       - -usr/include/*
-      - -usr/lib/x86_64-linux-gnu/pkgconfig/*
+      - -usr/lib/*-linux-gnu/pkgconfig/*
+      # Exclude unused libraries
+      - -usr/lib/*-linux-gnu/libcaca++.so*
+      - -usr/lib/*-linux-gnu/libcjson_utils.so*
+      - -usr/lib/*-linux-gnu/libcolordprivate.so*
+      - -usr/lib/*-linux-gnu/libdconf.so*
+      - -usr/lib/*-linux-gnu/libEGL_mesa.so*
+      - -usr/lib/*-linux-gnu/libexslt.so*
+      - -usr/lib/*-linux-gnu/libfaad_drm.so*
+      - -usr/lib/*-linux-gnu/libflite*.so*
+      - -usr/lib/*-linux-gnu/libform.so*
+      - -usr/lib/*-linux-gnu/libfreebl*.so*
+      - -usr/lib/*-linux-gnu/libGLX_mesa.so*
+      - -usr/lib/*-linux-gnu/libgstcheck-*.so*
+      - -usr/lib/*-linux-gnu/libgstcontroller-*.so*
+      - -usr/lib/*-linux-gnu/libgstdxva-*.so*
+      - -usr/lib/*-linux-gnu/libgstplay-*.so*
+      - -usr/lib/*-linux-gnu/libgstplayer-*.so*
+      - -usr/lib/*-linux-gnu/libgsttranscoder-*.so*
+      - -usr/lib/*-linux-gnu/libhwy_contrib.so*
+      - -usr/lib/*-linux-gnu/libhwy_test.so*
+      - -usr/lib/*-linux-gnu/libicuio.so*
+      - -usr/lib/*-linux-gnu/libicutest.so*
+      - -usr/lib/*-linux-gnu/libicutu.so*
+      - -usr/lib/*-linux-gnu/libjacknet.so*
+      - -usr/lib/*-linux-gnu/libjackserver.so*
+      - -usr/lib/*-linux-gnu/libmenu.so*
+      - -usr/lib/*-linux-gnu/libmfx-tracer.so*
+      - -usr/lib/*-linux-gnu/libmfx-tracer.so*
+      - -usr/lib/*-linux-gnu/libmfxhw64.so*
+      - -usr/lib/*-linux-gnu/libnssckbi.so
+      - -usr/lib/*-linux-gnu/libnssdbm3.so
+      - -usr/lib/*-linux-gnu/libOpenEXRCore-*.so*
+      - -usr/lib/*-linux-gnu/libOpenEXRUtil-*.so*
+      - -usr/lib/*-linux-gnu/liborc-test-*.so*
+      - -usr/lib/*-linux-gnu/libpanel.so*
+      - -usr/lib/*-linux-gnu/libsmime3.so*
+      - -usr/lib/*-linux-gnu/libsoftokn3.so*
+      - -usr/lib/*-linux-gnu/libSoundTouchDll.so*
+      - -usr/lib/*-linux-gnu/libssl3.so
+      - -usr/lib/*-linux-gnu/libunwind-*.so*
+      - -usr/lib/*-linux-gnu/libxcb-glx.so*
+      - -usr/lib/*-linux-gnu/libXxf86vm.so*
+      - -usr/lib/*-linux-gnu/libzvbi-chains.so*
     build-packages:
       - appstream
-      - execstack
       - gettext
-      - libgdk-pixbuf2.0-0
-      - libglib2.0-bin
-      - python3-wheel
     stage-packages:
       - gstreamer1.0-plugins-bad
       - gstreamer1.0-plugins-good
       - libchromaprint-tools
-      - libgettextpo0
 
   pyqt6:
     plugin: nil
@@ -130,6 +167,19 @@ parts:
     stage-packages:
       - python3-aubio  # for the BPM plugin
       - python3-zstandard
+    prime:
+      - -usr/bin/dh_numpy3
+      - -usr/bin/f2py*
+      - -usr/lib/*-linux-gnu/pkgconfig/*
+      - -usr/lib/*-linux-gnu/libcjson_utils.so*
+      - -usr/lib/*-linux-gnu/libfftw3f_omp.so*
+      - -usr/lib/*-linux-gnu/libfftw3f_threads.so*
+      - -usr/lib/*-linux-gnu/libhwy_contrib.so*
+      - -usr/lib/*-linux-gnu/libhwy_test.so*
+      - -usr/lib/*-linux-gnu/libicuio.so*
+      - -usr/lib/*-linux-gnu/libicutest.so*
+      - -usr/lib/*-linux-gnu/libicutu.so*
+      - -usr/lib/*-linux-gnu/libzvbi-chains.so*
 
   libdiscid:
     plugin: cmake
@@ -168,6 +218,14 @@ parts:
       - libinih1
       - libssh-gcrypt-4
       - libtag1v5
+    prime:
+      - -usr/lib/*-linux-gnu/libcjson_utils.so*
+      - -usr/lib/*-linux-gnu/libhwy_contrib.so*
+      - -usr/lib/*-linux-gnu/libhwy_test.so*
+      - -usr/lib/*-linux-gnu/libicuio.so*
+      - -usr/lib/*-linux-gnu/libicutest.so*
+      - -usr/lib/*-linux-gnu/libicutu.so*
+      - -usr/lib/*-linux-gnu/libzvbi-chains.so*
 
   # Custom launch scripts
   command-chain:
@@ -191,3 +249,9 @@ parts:
       - scriptlets/selective-checkout
     prime:
       - -*
+
+lint:
+  ignore:
+    - library:
+      - usr/lib/*-linux-gnu/caca/libgl_plugin.so*
+      - usr/lib/*-linux-gnu/libdiscid.so*
