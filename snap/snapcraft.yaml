@@ -135,11 +135,18 @@ parts:
     build-packages:
       - libvulkan-dev
     override-build: |
+      # Set path to qmake
       echo "[tool.sip.builder]" >> pyproject.toml
       echo "qmake = \"/snap/kde-qt6-core24-sdk/current/usr/bin/qt6/qmake\"" >> pyproject.toml
+
+      # Install build dependencies
       pip install --break-system-packages PyQt6-sip PyQt-builder
-      echo $LD_LIBRARY_PATH
-      export LD_LIBRARY_PATH="/snap/kde-qt6-core24-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$LD_LIBRARY_PATH"
+
+      # Build PyQt6
+      export LD_LIBRARY_PATH="/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:/snap/kde-qt6-core24-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$LD_LIBRARY_PATH"
+      export CFLAGS="-I/snap/kde-qt6-core24-sdk/current/usr/include ${CFLAGS:-}"
+      export CXXFLAGS="-I/snap/kde-qt6-core24-sdk/current/usr/include ${CXXFLAGS:-}"
+      export LDFLAGS="-L/snap/kde-qt6-core24-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR ${LDFLAGS:-}"
       sip-install \
         --qt-shared \
         --concatenate=1 \
@@ -158,8 +165,13 @@ parts:
         --no-designer-plugin \
         --no-docstrings \
         --no-qml-plugin \
-        --no-tools
-      mv /usr/local/lib/python3.12/dist-packages/PyQt6/sip.cpython-*.so "$CRAFT_PART_INSTALL/usr/lib/python3/dist-packages/PyQt6"
+        --no-tools \
+        --qmake-setting QMAKE_CFLAGS="$CFLAGS" \
+        --qmake-setting QMAKE_CXXFLAGS="$CXXFLAGS" \
+        --qmake-setting QMAKE_LFLAGS="$LDFLAGS"
+
+      # The sip.cpython-*.so file is required for PyQt6 during runtime
+      install /usr/local/lib/python3.12/dist-packages/PyQt6/sip.cpython-*.so "$CRAFT_PART_INSTALL/usr/lib/python3/dist-packages/PyQt6"
 
   # Separate dependencies needed for some Picard plugins
   plugin-requirements:
