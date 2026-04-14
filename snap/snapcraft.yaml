@@ -13,34 +13,30 @@ website: https://picard.musicbrainz.org/
 platforms:
   amd64:
   arm64:
-  armhf:
 
 apps:
   picard:
+    extensions:
+      - kde-neon-6
     common-id: org.musicbrainz.Picard
     command: bin/picard
     environment:
-      QT_QPA_PLATFORMTHEME: gtk3
       PYTHONPATH: "$SNAP/usr/lib/python3/dist-packages"
     plugs:
-      - desktop
-      - desktop-legacy
-      - wayland
-      - x11
       - gsettings
-      - home
-      - network
-      - network-bind
-      - network-manager-observe
-      - opengl
-      - optical-drive
-      - audio-playback
-      - pulseaudio  # For eventual backwards compatibility only
-      - removable-media
-      - unity7
+      - home  # At a minimum users should be allowed to tag files on their home directory
+      - network-manager-observe  # Used by Qt6, required to avoid warnings on startup
+      - optical-drive  # CD lookup support
+      - removable-media  # Tagging files on external media is a common use case
     command-chain:
-      - bin/desktop-launch
       - bin/app-launch
+
+  plugins:
+    command: bin/picard-plugins
+    environment:
+      PYTHONPATH: "$SNAP/usr/lib/python3/dist-packages"
+    command-chain:
+      - snap/command-chain/desktop-launch
 
   fpcalc:
     command: usr/bin/fpcalc
@@ -54,32 +50,22 @@ apps:
       - home
       - removable-media
 
-plugs:
-  # Support for common GTK themes
-  # https://forum.snapcraft.io/t/how-to-use-the-system-gtk-theme-via-the-gtk-common-themes-snap/6235
-  gtk-3-themes:
-    interface: content
-    target: $SNAP/data-dir/themes
-    default-provider: gtk-common-themes
-  icon-themes:
-    interface: content
-    target: $SNAP/data-dir/icons
-    default-provider: gtk-common-themes
-  sound-themes:
-    interface: content
-    target: $SNAP/data-dir/sounds
-    default-provider: gtk-common-themes
+package-repositories:
+  - type: apt
+    url: http://origin.archive.neon.kde.org/user
+    suites: [noble]
+    components: [main]
+    architectures: [amd64, arm64]
+    key-id: 444DABCF3667D0283F894EDDE6D4736255751E5D
 
 parts:
   picard:
     after:
-      - desktop-qt5
-      - qt5-gtk-platform
-      - qt5-multimedia
+      - pyqt6
       - selective-checkout
     source: https://github.com/metabrainz/picard.git
-    source-branch: 2.x
-    # source-tag: release-2.8.5
+    source-branch: master
+    # source-tag: release-3.0.0a4
     # source-depth: 1
     plugin: python
     parse-info:
@@ -91,85 +77,145 @@ parts:
         --stable-tag-pattern="[[:digit:]]+\.[[:digit:]]+(\.[[:digit:]]+)?$" \
         --beta-tag-pattern="[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+b[[:digit:]]+$"
         # --release-candidate-tag-pattern="[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+rc[[:digit:]]+$"
-      git apply --verbose "${SNAPCRAFT_PROJECT_DIR}"/patching/picard/*.patch
       craftctl default
 
-    override-prime: |
-      craftctl default
-      # Compile resource caches
-      glib-compile-schemas $CRAFT_PRIME/usr/share/glib-2.0/schemas
-      update-mime-database $CRAFT_PRIME/usr/share/mime
-      for dir in $CRAFT_PRIME/usr/share/icons/*; do
-        if [ -f "$dir/index.theme" ]; then
-          gtk-update-icon-cache --force "$dir"
-        fi
-      done
-
-      # On armhf libde265.so contains the executable stack, causing snapcraft
-      # validation errors.
-      if [ "$CRAFT_ARCH_BUILD_FOR" = "armhf" ]; then
-        execstack --clear-execstack usr/lib/arm-linux-gnueabihf/libde265.so.*
-        execstack --clear-execstack usr/lib/arm-linux-gnueabihf/libdirect-1.7.so.*
-      fi
-
-    prime:
-      - -lib/python3.*/site-packages/PyQt5*
-      - -usr/bin/dh_numpy3
-      - -usr/bin/f2py3*
-      - -usr/include/*
-      - -usr/lib/x86_64-linux-gnu/pkgconfig/*
-    build-packages:
-      - appstream
-      - execstack
-      - gettext
-      - libgdk-pixbuf2.0-0
-      - libglib2.0-bin
-      - python3-wheel
-    stage-packages:
-      - libchromaprint-tools
-      - libgettextpo0
-      - python3-aubio  # for the BPM plugin
-      - python3-pyqt5
-      - python3-pyqt5.qtmultimedia
-      - python3-zstandard
-
-  desktop-qt5:
-    source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
-    source-subdir: qt
-    plugin: make
-    make-parameters: ["FLAVOR=qt5"]
-    build-packages:
-      - build-essential
-      - qtbase5-dev
-      - dpkg-dev
-    stage-packages:
-      - adwaita-icon-theme
-      - dmz-cursor-theme
-      - fcitx-frontend-qt5
-      - fonts-ubuntu
-      - libgdk-pixbuf2.0-0
-      - libqt5gui5t64
-      - libqt5svg5  # for loading icon themes which are svg
-      - libxkbcommon0
-      - light-themes
-      - locales-all
-      - qtwayland5
-      - shared-mime-info
-      - xdg-user-dirs
-      - xkb-data
-
-  qt5-gtk-platform:
-    plugin: nil
-    stage-packages:
-      - librsvg2-common  # For SVG icon support in GTK file picker
-      - qt5-gtk-platformtheme
-
-  qt5-multimedia:
-    plugin: nil
+    python-packages:
+      - OpenCC
     stage-packages:
       - gstreamer1.0-plugins-bad
       - gstreamer1.0-plugins-good
-      - libqt5multimedia5-plugins
+      - libchromaprint-tools
+    prime:
+      # PyQt installed from requirements, exclude as the snap includes its own PyQt build
+      - -lib/python3*/site-packages/PyQt6*
+      - -lib/python3*/site-packages/pyqt6*
+      # Exclude development files
+      - -usr/include/*
+      - -usr/lib/*-linux-gnu/pkgconfig/*
+      # Exclude unused libraries
+      - -usr/lib/*-linux-gnu/libcaca++.so*
+      - -usr/lib/*-linux-gnu/libcjson_utils.so*
+      - -usr/lib/*-linux-gnu/libcolordprivate.so*
+      - -usr/lib/*-linux-gnu/libdconf.so*
+      - -usr/lib/*-linux-gnu/libEGL_mesa.so*
+      - -usr/lib/*-linux-gnu/libexslt.so*
+      - -usr/lib/*-linux-gnu/libfaad_drm.so*
+      - -usr/lib/*-linux-gnu/libflite*.so*
+      - -usr/lib/*-linux-gnu/libform.so*
+      - -usr/lib/*-linux-gnu/libfreebl*.so*
+      - -usr/lib/*-linux-gnu/libGLX_mesa.so*
+      - -usr/lib/*-linux-gnu/libgstcheck-*.so*
+      - -usr/lib/*-linux-gnu/libgstcontroller-*.so*
+      - -usr/lib/*-linux-gnu/libgstdxva-*.so*
+      - -usr/lib/*-linux-gnu/libgstplay-*.so*
+      - -usr/lib/*-linux-gnu/libgstplayer-*.so*
+      - -usr/lib/*-linux-gnu/libgsttranscoder-*.so*
+      - -usr/lib/*-linux-gnu/libhwy_contrib.so*
+      - -usr/lib/*-linux-gnu/libhwy_test.so*
+      - -usr/lib/*-linux-gnu/libicuio.so*
+      - -usr/lib/*-linux-gnu/libicutest.so*
+      - -usr/lib/*-linux-gnu/libicutu.so*
+      - -usr/lib/*-linux-gnu/libjacknet.so*
+      - -usr/lib/*-linux-gnu/libjackserver.so*
+      - -usr/lib/*-linux-gnu/libmenu.so*
+      - -usr/lib/*-linux-gnu/libmfx-tracer.so*
+      - -usr/lib/*-linux-gnu/libmfx-tracer.so*
+      - -usr/lib/*-linux-gnu/libmfxhw64.so*
+      - -usr/lib/*-linux-gnu/libnssckbi.so
+      - -usr/lib/*-linux-gnu/libnssdbm3.so
+      - -usr/lib/*-linux-gnu/libOpenEXRCore-*.so*
+      - -usr/lib/*-linux-gnu/libOpenEXRUtil-*.so*
+      - -usr/lib/*-linux-gnu/liborc-test-*.so*
+      - -usr/lib/*-linux-gnu/libpanel.so*
+      - -usr/lib/*-linux-gnu/libsmime3.so*
+      - -usr/lib/*-linux-gnu/libsoftokn3.so*
+      - -usr/lib/*-linux-gnu/libSoundTouchDll.so*
+      - -usr/lib/*-linux-gnu/libssl3.so
+      - -usr/lib/*-linux-gnu/libunwind-*.so*
+      - -usr/lib/*-linux-gnu/libxcb-glx.so*
+      - -usr/lib/*-linux-gnu/libXxf86vm.so*
+      - -usr/lib/*-linux-gnu/libzvbi-chains.so*
+
+  pyqt6:
+    plugin: nil
+    source: https://files.pythonhosted.org/packages/8b/47/b25c13eca5bebc6505394d0223e46d7ebf0c57dcac2ed908d7d19b18ab6b/pyqt6-6.11.0.tar.gz
+    source-type: tar
+    source-checksum: sha256/45dd60aa69976de1918b5ced6b4e7b6a25abd2a919ecef5fd5826ecc76718889
+    build-snaps:
+      - kde-qt6-core24-sdk
+    build-packages:
+      - libvulkan-dev
+    override-build: |
+      # Set path to qmake
+      echo "[tool.sip.builder]" >> pyproject.toml
+      echo "qmake = \"/snap/kde-qt6-core24-sdk/current/usr/bin/qt6/qmake\"" >> pyproject.toml
+
+      # Install build dependencies
+      pip install --break-system-packages PyQt6-sip PyQt-builder
+
+      # Build PyQt6
+      export LD_LIBRARY_PATH="/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:/snap/kde-qt6-core24-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$LD_LIBRARY_PATH"
+      export CFLAGS="-I/snap/kde-qt6-core24-sdk/current/usr/include ${CFLAGS:-}"
+      export CXXFLAGS="-I/snap/kde-qt6-core24-sdk/current/usr/include ${CXXFLAGS:-}"
+      export LDFLAGS="-L/snap/kde-qt6-core24-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR ${LDFLAGS:-}"
+      sip-install \
+        --qt-shared \
+        --concatenate=1 \
+        --confirm-license \
+        --debug \
+        --verbose \
+        --jobs="$CRAFT_PARALLEL_BUILD_COUNT" \
+        --target-dir="$CRAFT_PART_INSTALL/usr/lib/python3/dist-packages" \
+        --enable=QtCore \
+        --enable=QtDBus \
+        --enable=QtGui \
+        --enable=QtMultimedia \
+        --enable=QtNetwork \
+        --enable=QtWidgets \
+        --no-dbus-python \
+        --no-designer-plugin \
+        --no-docstrings \
+        --no-qml-plugin \
+        --no-tools \
+        --qmake-setting QMAKE_CFLAGS="$CFLAGS" \
+        --qmake-setting QMAKE_CXXFLAGS="$CXXFLAGS" \
+        --qmake-setting QMAKE_LFLAGS="$LDFLAGS"
+
+      # The sip.cpython-*.so file is required for PyQt6 during runtime
+      install /usr/local/lib/python3.12/dist-packages/PyQt6/sip.cpython-*.so "$CRAFT_PART_INSTALL/usr/lib/python3/dist-packages/PyQt6"
+
+  # Qt6Multimedia is not included in the kde-neon base snap
+  qt6multimedia:
+    plugin: nil
+    stage-packages:
+      - libqt6multimedia6
+    stage:
+      # Only include the necessary Qt6Multimedia files
+      - usr/lib/*-linux-gnu/libQt6Multimedia.so*
+      - usr/lib/*-linux-gnu/qt6/plugins/multimedia/libffmpegmediaplugin.so
+      - usr/lib/*-linux-gnu/qt6/plugins/multimedia/libgstreamermediaplugin.so
+
+  # Separate dependencies needed for some Picard plugins
+  plugin-requirements:
+    plugin: nil
+    stage-packages:
+      - python3-aubio  # BPM plugin
+      - python3-zstandard  # XQAF plugin
+      - libopencc1.1  # OpenCC plugin
+    prime:
+      - -usr/bin/dh_numpy3
+      - -usr/bin/f2py*
+      - -usr/lib/*-linux-gnu/pkgconfig/*
+      - -usr/lib/*-linux-gnu/libcjson_utils.so*
+      - -usr/lib/*-linux-gnu/libfftw3f_omp.so*
+      - -usr/lib/*-linux-gnu/libfftw3f_threads.so*
+      - -usr/lib/*-linux-gnu/libhwy_contrib.so*
+      - -usr/lib/*-linux-gnu/libhwy_test.so*
+      - -usr/lib/*-linux-gnu/libicuio.so*
+      - -usr/lib/*-linux-gnu/libicutest.so*
+      - -usr/lib/*-linux-gnu/libicutu.so*
+      - -usr/lib/*-linux-gnu/libmarisa.so*
+      - -usr/lib/*-linux-gnu/libzvbi-chains.so*
 
   libdiscid:
     plugin: cmake
@@ -184,9 +230,9 @@ parts:
 
   rsgain:
     plugin: cmake
-    source: https://github.com/complexlogic/rsgain/releases/download/v3.6/rsgain-3.6-source.tar.xz
+    source: https://github.com/complexlogic/rsgain/releases/download/v3.7/rsgain-3.7-source.tar.xz
     source-type: tar
-    source-checksum: sha256/26d46f1240a83366e82cbc9121a467fc1dcc977c7adfb4e15c99ead6b3d07ec8
+    source-checksum: sha256/54037f73ba6682f9b71b2265275f5f89de50b90b12d5af512287c60d9d52c9cc
     cmake-parameters:
       - -DCMAKE_INSTALL_PREFIX=/usr
     build-packages:
@@ -208,6 +254,14 @@ parts:
       - libinih1
       - libssh-gcrypt-4
       - libtag1v5
+    prime:
+      - -usr/lib/*-linux-gnu/libcjson_utils.so*
+      - -usr/lib/*-linux-gnu/libhwy_contrib.so*
+      - -usr/lib/*-linux-gnu/libhwy_test.so*
+      - -usr/lib/*-linux-gnu/libicuio.so*
+      - -usr/lib/*-linux-gnu/libicutest.so*
+      - -usr/lib/*-linux-gnu/libicutu.so*
+      - -usr/lib/*-linux-gnu/libzvbi-chains.so*
 
   # Custom launch scripts
   command-chain:
@@ -231,3 +285,10 @@ parts:
       - scriptlets/selective-checkout
     prime:
       - -*
+
+lint:
+  ignore:
+    - library:
+      - usr/lib/*-linux-gnu/caca/libgl_plugin.so*
+      - usr/lib/*-linux-gnu/libdiscid.so*
+      - usr/lib/*-linux-gnu/libopencc.so*
