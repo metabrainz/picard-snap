@@ -32,6 +32,13 @@ apps:
     command-chain:
       - bin/app-launch
 
+  plugins:
+    command: bin/picard-plugins
+    environment:
+      PYTHONPATH: "$SNAP/usr/lib/python3/dist-packages"
+    command-chain:
+      - snap/command-chain/desktop-launch
+
   fpcalc:
     command: usr/bin/fpcalc
     plugs:
