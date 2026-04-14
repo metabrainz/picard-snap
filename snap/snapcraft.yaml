@@ -27,7 +27,6 @@ apps:
       - home  # At a minimum users should be allowed to tag files on their home directory
       - network-manager-observe  # Used by Qt6, required to avoid warnings on startup
       - optical-drive  # CD lookup support
-      - pulseaudio  # For eventual backwards compatibility only
       - removable-media  # Tagging files on external media is a common use case
     command-chain:
       - bin/app-launch
