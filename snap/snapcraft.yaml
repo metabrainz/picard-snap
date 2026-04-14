@@ -76,6 +76,10 @@ parts:
 
     python-packages:
       - OpenCC
+    stage-packages:
+      - gstreamer1.0-plugins-bad
+      - gstreamer1.0-plugins-good
+      - libchromaprint-tools
     prime:
       # PyQt installed from requirements, exclude as the snap includes its own PyQt build
       - -lib/python3*/site-packages/PyQt6*
@@ -126,10 +130,6 @@ parts:
       - -usr/lib/*-linux-gnu/libxcb-glx.so*
       - -usr/lib/*-linux-gnu/libXxf86vm.so*
       - -usr/lib/*-linux-gnu/libzvbi-chains.so*
-    stage-packages:
-      - gstreamer1.0-plugins-bad
-      - gstreamer1.0-plugins-good
-      - libchromaprint-tools
 
   pyqt6:
     plugin: nil
@@ -209,6 +209,7 @@ parts:
       - -usr/lib/*-linux-gnu/libicuio.so*
       - -usr/lib/*-linux-gnu/libicutest.so*
       - -usr/lib/*-linux-gnu/libicutu.so*
+      - -usr/lib/*-linux-gnu/libmarisa.so*
       - -usr/lib/*-linux-gnu/libzvbi-chains.so*
 
   libdiscid:
