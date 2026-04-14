@@ -145,6 +145,7 @@ parts:
       - kde-qt6-core24-sdk
     build-packages:
       - libvulkan-dev
+      - python3-pip
     override-build: |
       # Set path to qmake
       echo "[tool.sip.builder]" >> pyproject.toml
