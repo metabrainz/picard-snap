@@ -85,10 +85,11 @@ parts:
       - gstreamer1.0-plugins-bad
       - gstreamer1.0-plugins-good
       - libchromaprint-tools
-    prime:
+    stage:
       # PyQt installed from requirements, exclude as the snap includes its own PyQt build
       - -lib/python3*/site-packages/PyQt6*
       - -lib/python3*/site-packages/pyqt6*
+    prime:
       # Exclude development files
       - -usr/include/*
       - -usr/lib/*-linux-gnu/pkgconfig/*
@@ -166,7 +167,7 @@ parts:
         --debug \
         --verbose \
         --jobs="$CRAFT_PARALLEL_BUILD_COUNT" \
-        --target-dir="$CRAFT_PART_INSTALL/usr/lib/python3/dist-packages" \
+        --target-dir="$CRAFT_PART_INSTALL/lib/python3.12/site-packages" \
         --enable=QtCore \
         --enable=QtDBus \
         --enable=QtGui \
@@ -183,7 +184,7 @@ parts:
         --qmake-setting QMAKE_LFLAGS="$LDFLAGS"
 
       # The sip.cpython-*.so file is required for PyQt6 during runtime
-      install /usr/local/lib/python3.12/dist-packages/PyQt6/sip.cpython-*.so "$CRAFT_PART_INSTALL/usr/lib/python3/dist-packages/PyQt6"
+      install /usr/local/lib/python3.12/dist-packages/PyQt6/sip.cpython-*.so "$CRAFT_PART_INSTALL/lib/python3.12/site-packages/PyQt6"
 
   # Qt6Multimedia is not included in the kde-neon base snap
   qt6multimedia:
