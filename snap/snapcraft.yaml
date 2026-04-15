@@ -81,6 +81,7 @@ parts:
 
     python-packages:
       - OpenCC
+      - zstandard
     stage-packages:
       - gstreamer1.0-plugins-bad
       - gstreamer1.0-plugins-good
@@ -198,13 +199,11 @@ parts:
       - usr/lib/*-linux-gnu/qt6/plugins/multimedia/libgstreamermediaplugin.so
       - usr/share/doc/libqt6multimedia6/copyright
 
-  # Separate dependencies needed for some Picard plugins
-  plugin-requirements:
+  # aubio (for the BPM plugin)
+  aubio:
     plugin: nil
     stage-packages:
-      - python3-aubio  # BPM plugin
-      - python3-zstandard  # XQAF plugin
-      - libopencc1.1  # OpenCC plugin
+      - python3-aubio
     prime:
       - -usr/bin/dh_numpy3
       - -usr/bin/f2py*
