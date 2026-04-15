@@ -91,7 +91,19 @@ parts:
       - -lib/python3*/site-packages/PyQt6*
       - -lib/python3*/site-packages/pyqt6*
     prime:
+      # Unused binaries
+      - -bin/activate*
+      - -bin/Activate.ps1
+      - -bin/markdown_py
+      - -bin/mid3*
+      - -bin/moggsplit
+      - -bin/mutagen-*
+      - -bin/normalizer
+      - -bin/pip*
+      - -bin/pylupdate6
+      - -bin/pyuic6
       # Exclude development files
+      - -include/*
       - -usr/include/*
       - -usr/lib/*-linux-gnu/pkgconfig/*
       # Exclude unused libraries
