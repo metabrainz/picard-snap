@@ -201,6 +201,8 @@ parts:
 
   # Qt6Multimedia is not included in the kde-neon base snap
   qt6multimedia:
+    after:
+      - cleanup  # ensure files get copied after the cleanup ran
     plugin: nil
     stage-packages:
       - libqt6multimedia6
@@ -300,9 +302,38 @@ parts:
     prime:
       - -*
 
+  cleanup:
+    after:
+      - picard
+      - aubio
+      - libdiscid
+      - rsgain
+    plugin: nil
+    build-snaps:
+      - core24
+      - kf6-core24
+    override-prime: |
+      # Remove duplicate files in the dependent snaps from the final snap.
+      for snap in "core24" "kf6-core24"; do
+        cd "/snap/$snap/current/usr"
+        find . -type f,l -print | sed 's|^./|/root/prime/usr/|' | xargs rm -f
+      done
+
+      # Fully remove additional files from the final snap.
+      rm -rf /root/prime/usr/lib/udev/rules.d/*
+      rm -rf /root/prime/usr/share/directfb-*
+      rm -rf /root/prime/usr/share/fonts
+      rm -rf /root/prime/usr/share/gtk-3.0
+      rm -rf /root/prime/usr/share/sounds
+
+      # Remove broken symlinks
+      find /root/prime/ -xtype l  -delete
+
+      # Remove empty directories
+      find /root/prime/ -depth -type d -empty -delete
+
 lint:
   ignore:
     - library:
-      - usr/lib/*-linux-gnu/caca/libgl_plugin.so*
       - usr/lib/*-linux-gnu/libdiscid.so*
       - usr/lib/*-linux-gnu/libopencc.so*
