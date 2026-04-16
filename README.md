@@ -1,6 +1,6 @@
 <h1 align="center">
   <img
-  src="https://raw.githubusercontent.com/phw/musicbrainz-picard-snap/master/snap/gui/picard.svg" alt="MusicBrainz Picard">
+  src="/assets/images/snap/gui/picard.svg" alt="MusicBrainz Picard">
   <br />
   MusicBrainz Picard
 </h1>
@@ -17,17 +17,31 @@ distributions.</p>
 
 ## Install
 
-    sudo apt install snapd-xdg-open
     sudo snap install picard
 
-([Don't have snapd installed?](https://snapcraft.io/docs/core/install))
+Picard installed as a Snap is running inside a sandbox and thus it does not have full access to all files and folders on your system. By default Picard has access to your home folder. You can additionally give it access to removable media by running the following command on a terminal:
 
-See also the [Download & Install](https://picard-docs.musicbrainz.org/en/getting_started/download.html#installing-with-snap) instructions in the MusicBrainz Picard documentation.
+    snap connect picard:removable-media
+
+([Don't have snapd installed?](https://snapcraft.io/docs/tutorials/install-the-daemon/))
+
+See also the [Installing with Snap](https://picard-docs.musicbrainz.org/en/latest/getting_started/download.html#installing-with-snap) instructions in the MusicBrainz Picard documentation.
 
 Please see the [Picard download page](https://picard.musicbrainz.org/downloads/) for installing Picard
 on other platforms.
 
-![MusicBrainz Picard main window](https://picard-docs.musicbrainz.org/en/_images/mainscreen-linux-gnome.png)
+
+## Running
+
+The Picard Snap should show up as an application "MusicBrainz Picard" in your desktop environment. You can also start it from a terminal:
+
+    snap run picard
+    
+![MusicBrainz Picard main window](/assets/images/mainscreen-linux-gnome.png)
+
+Picard 3 also allows managing plugins from command line. Run the following command for more information on how to use this:
+
+    snap run picard.plugins --help
 
 
 ## Support and issue reporting
