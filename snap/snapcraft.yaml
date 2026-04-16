@@ -108,48 +108,16 @@ parts:
       - -include/*
       - -usr/include/*
       - -usr/lib/*-linux-gnu/pkgconfig/*
+      # Exclude unused Python packages
+      - -lib/python3*/site-packages/pip*
       # Exclude unused libraries
-      - -usr/lib/*-linux-gnu/libcaca++.so*
       - -usr/lib/*-linux-gnu/libcjson_utils.so*
-      - -usr/lib/*-linux-gnu/libcolordprivate.so*
-      - -usr/lib/*-linux-gnu/libdconf.so*
-      - -usr/lib/*-linux-gnu/libEGL_mesa.so*
-      - -usr/lib/*-linux-gnu/libexslt.so*
-      - -usr/lib/*-linux-gnu/libfaad_drm.so*
-      - -usr/lib/*-linux-gnu/libflite*.so*
-      - -usr/lib/*-linux-gnu/libform.so*
-      - -usr/lib/*-linux-gnu/libfreebl*.so*
-      - -usr/lib/*-linux-gnu/libGLX_mesa.so*
-      - -usr/lib/*-linux-gnu/libgstcheck-*.so*
-      - -usr/lib/*-linux-gnu/libgstcontroller-*.so*
-      - -usr/lib/*-linux-gnu/libgstdxva-*.so*
-      - -usr/lib/*-linux-gnu/libgstplay-*.so*
-      - -usr/lib/*-linux-gnu/libgstplayer-*.so*
-      - -usr/lib/*-linux-gnu/libgsttranscoder-*.so*
       - -usr/lib/*-linux-gnu/libhwy_contrib.so*
       - -usr/lib/*-linux-gnu/libhwy_test.so*
       - -usr/lib/*-linux-gnu/libicuio.so*
       - -usr/lib/*-linux-gnu/libicutest.so*
       - -usr/lib/*-linux-gnu/libicutu.so*
-      - -usr/lib/*-linux-gnu/libjacknet.so*
-      - -usr/lib/*-linux-gnu/libjackserver.so*
-      - -usr/lib/*-linux-gnu/libmenu.so*
-      - -usr/lib/*-linux-gnu/libmfx-tracer.so*
-      - -usr/lib/*-linux-gnu/libmfx-tracer.so*
-      - -usr/lib/*-linux-gnu/libmfxhw64.so*
-      - -usr/lib/*-linux-gnu/libnssckbi.so
-      - -usr/lib/*-linux-gnu/libnssdbm3.so
-      - -usr/lib/*-linux-gnu/libOpenEXRCore-*.so*
-      - -usr/lib/*-linux-gnu/libOpenEXRUtil-*.so*
-      - -usr/lib/*-linux-gnu/liborc-test-*.so*
-      - -usr/lib/*-linux-gnu/libpanel.so*
-      - -usr/lib/*-linux-gnu/libsmime3.so*
-      - -usr/lib/*-linux-gnu/libsoftokn3.so*
-      - -usr/lib/*-linux-gnu/libSoundTouchDll.so*
-      - -usr/lib/*-linux-gnu/libssl3.so
-      - -usr/lib/*-linux-gnu/libunwind-*.so*
-      - -usr/lib/*-linux-gnu/libxcb-glx.so*
-      - -usr/lib/*-linux-gnu/libXxf86vm.so*
+      - -usr/lib/*-linux-gnu/libtheora.so*
       - -usr/lib/*-linux-gnu/libzvbi-chains.so*
 
   pyqt6:
@@ -245,21 +213,9 @@ parts:
       - libtag1-dev
       - pkg-config
     stage-packages:
-      - libavformat60
-      - libbluray2
       - libebur128-1
       - libfmt9
       - libinih1
-      - libssh-gcrypt-4
-      - libtag1v5
-    prime:
-      - -usr/lib/*-linux-gnu/libcjson_utils.so*
-      - -usr/lib/*-linux-gnu/libhwy_contrib.so*
-      - -usr/lib/*-linux-gnu/libhwy_test.so*
-      - -usr/lib/*-linux-gnu/libicuio.so*
-      - -usr/lib/*-linux-gnu/libicutest.so*
-      - -usr/lib/*-linux-gnu/libicutu.so*
-      - -usr/lib/*-linux-gnu/libzvbi-chains.so*
 
   # Custom launch scripts
   command-chain:
@@ -300,73 +256,22 @@ parts:
         find . -type f,l -print | sed 's|^./|/root/prime/usr/|' | xargs rm -f
       done
 
+      cd /root/prime
+
       # Fully remove additional files from the final snap.
-      rm -rf /root/prime/usr/lib/*-linux-gnu/directfb-*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/dri/*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/gbm/*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/gstreamer-1.0/*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libbs2b.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libdecor-0.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libdirect-1.7.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libdirectfb-1.7.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libdrm_amdgpu.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libdrm_intel.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libfluidsynth.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libfreeaptx.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libfusion-*.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libgallium-*.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libGLESv2.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libjack.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/liblc3.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libldacBT_enc.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/liblilv-0.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libLLVM.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/liblmfx.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/liblrdf.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libltc.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libmfx.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libmjpegutils-*.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libmodplug.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libmpeg2encpp-*.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libmplex2-*.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libneon.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libopenh264.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libOpenNI2.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libraptor2.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libsbc.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libSDL3.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libsensors.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libsord-0.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libSoundTouch.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libspandsp.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libsratom-0.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libsratom.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libsrtp2.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libvo-aacenc.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libvo-amrwbenc.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libvulkan.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libWildMidi.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libxcb-present.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libxcb-randr.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libxcb-sync.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libxcb-xfixes.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libXdamage.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libxshmfence.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libyajl.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libzbar.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libzix-0.so*
-      rm -rf /root/prime/usr/lib/*-linux-gnu/libserd-0.so*
-      rm -rf /root/prime/usr/lib/udev/rules.d/*
-      rm -rf /root/prime/usr/share/directfb-*
-      rm -rf /root/prime/usr/share/fonts
-      rm -rf /root/prime/usr/share/gtk-3.0
-      rm -rf /root/prime/usr/share/sounds
+      rm -rf usr/lib/*-linux-gnu/libdrm_intel.so*
+      rm -rf usr/lib/*-linux-gnu/libwayland-client.so*
+      rm -rf usr/share/bug/
+      rm -rf usr/share/lintian/
+      rm -rf usr/share/man/
+      rm -rf usr/share/pkgconfig/
+      rm -rf usr/share/X11/
 
       # Remove broken symlinks
-      find /root/prime/ -xtype l  -delete
+      find . -xtype l  -delete
 
       # Remove empty directories
-      find /root/prime/ -depth -type d -empty -delete
+      find . -depth -type d -empty -delete
 
 lint:
   ignore:
