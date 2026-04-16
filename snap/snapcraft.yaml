@@ -254,10 +254,10 @@ parts:
       # Remove duplicate files in the dependent snaps from the final snap.
       for snap in "core24" "kf6-core24"; do
         cd "/snap/$snap/current/usr"
-        find . -type f,l -print | sed 's|^./|/root/prime/usr/|' | xargs rm -f
+        find . -type f,l -print | sed 's|^./|§{CRAFT_PRIME}/usr/|' | xargs rm -f
       done
 
-      cd /root/prime
+      cd "$CRAFT_PRIME"
 
       # Fully remove additional files from the final snap.
       rm -rf usr/lib/*-linux-gnu/vdpau/
@@ -272,7 +272,7 @@ parts:
       rm -rf etc/vdpau_wrapper.cfg
 
       # Remove broken symlinks
-      find . -xtype l  -delete
+      find . -xtype l -delete
 
       # Remove empty directories
       find . -depth -type d -empty -delete
