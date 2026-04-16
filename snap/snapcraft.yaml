@@ -43,12 +43,16 @@ apps:
     plugs:
       - home
       - removable-media
+    command-chain:
+      - snap/command-chain/desktop-launch
 
   rsgain:
     command: usr/bin/rsgain
     plugs:
       - home
       - removable-media
+    command-chain:
+      - snap/command-chain/desktop-launch
 
 package-repositories:
   - type: apt
@@ -299,6 +303,61 @@ parts:
       done
 
       # Fully remove additional files from the final snap.
+      rm -rf /root/prime/usr/lib/*-linux-gnu/directfb-*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/dri/*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/gbm/*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/gstreamer-1.0/*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libbs2b.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libdecor-0.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libdirect-1.7.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libdirectfb-1.7.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libdrm_amdgpu.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libdrm_intel.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libfluidsynth.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libfreeaptx.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libfusion-*.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libgallium-*.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libGLESv2.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libjack.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/liblc3.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libldacBT_enc.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/liblilv-0.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libLLVM.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/liblmfx.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/liblrdf.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libltc.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libmfx.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libmjpegutils-*.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libmodplug.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libmpeg2encpp-*.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libmplex2-*.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libneon.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libopenh264.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libOpenNI2.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libraptor2.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libsbc.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libSDL3.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libsensors.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libsord-0.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libSoundTouch.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libspandsp.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libsratom-0.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libsratom.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libsrtp2.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libvo-aacenc.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libvo-amrwbenc.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libvulkan.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libWildMidi.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libxcb-present.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libxcb-randr.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libxcb-sync.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libxcb-xfixes.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libXdamage.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libxshmfence.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libyajl.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libzbar.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libzix-0.so*
+      rm -rf /root/prime/usr/lib/*-linux-gnu/libserd-0.so*
       rm -rf /root/prime/usr/lib/udev/rules.d/*
       rm -rf /root/prime/usr/share/directfb-*
       rm -rf /root/prime/usr/share/fonts
