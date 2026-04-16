@@ -43,12 +43,16 @@ apps:
     plugs:
       - home
       - removable-media
+    command-chain:
+      - snap/command-chain/desktop-launch
 
   rsgain:
     command: usr/bin/rsgain
     plugs:
       - home
       - removable-media
+    command-chain:
+      - snap/command-chain/desktop-launch
 
 package-repositories:
   - type: apt
@@ -80,60 +84,40 @@ parts:
       craftctl default
 
     python-packages:
-      - OpenCC
+      - OpenCC  # opencc plugin
+      - zstandard  # xqaf plugin
     stage-packages:
-      - gstreamer1.0-plugins-bad
-      - gstreamer1.0-plugins-good
       - libchromaprint-tools
-    prime:
+    stage:
       # PyQt installed from requirements, exclude as the snap includes its own PyQt build
       - -lib/python3*/site-packages/PyQt6*
       - -lib/python3*/site-packages/pyqt6*
+    prime:
+      # Unused binaries
+      - -bin/activate*
+      - -bin/Activate.ps1
+      - -bin/markdown_py
+      - -bin/mid3*
+      - -bin/moggsplit
+      - -bin/mutagen-*
+      - -bin/normalizer
+      - -bin/pip*
+      - -bin/pylupdate6
+      - -bin/pyuic6
       # Exclude development files
+      - -include/*
       - -usr/include/*
       - -usr/lib/*-linux-gnu/pkgconfig/*
+      # Exclude unused Python packages
+      - -lib/python3*/site-packages/pip*
       # Exclude unused libraries
-      - -usr/lib/*-linux-gnu/libcaca++.so*
       - -usr/lib/*-linux-gnu/libcjson_utils.so*
-      - -usr/lib/*-linux-gnu/libcolordprivate.so*
-      - -usr/lib/*-linux-gnu/libdconf.so*
-      - -usr/lib/*-linux-gnu/libEGL_mesa.so*
-      - -usr/lib/*-linux-gnu/libexslt.so*
-      - -usr/lib/*-linux-gnu/libfaad_drm.so*
-      - -usr/lib/*-linux-gnu/libflite*.so*
-      - -usr/lib/*-linux-gnu/libform.so*
-      - -usr/lib/*-linux-gnu/libfreebl*.so*
-      - -usr/lib/*-linux-gnu/libGLX_mesa.so*
-      - -usr/lib/*-linux-gnu/libgstcheck-*.so*
-      - -usr/lib/*-linux-gnu/libgstcontroller-*.so*
-      - -usr/lib/*-linux-gnu/libgstdxva-*.so*
-      - -usr/lib/*-linux-gnu/libgstplay-*.so*
-      - -usr/lib/*-linux-gnu/libgstplayer-*.so*
-      - -usr/lib/*-linux-gnu/libgsttranscoder-*.so*
       - -usr/lib/*-linux-gnu/libhwy_contrib.so*
       - -usr/lib/*-linux-gnu/libhwy_test.so*
       - -usr/lib/*-linux-gnu/libicuio.so*
       - -usr/lib/*-linux-gnu/libicutest.so*
       - -usr/lib/*-linux-gnu/libicutu.so*
-      - -usr/lib/*-linux-gnu/libjacknet.so*
-      - -usr/lib/*-linux-gnu/libjackserver.so*
-      - -usr/lib/*-linux-gnu/libmenu.so*
-      - -usr/lib/*-linux-gnu/libmfx-tracer.so*
-      - -usr/lib/*-linux-gnu/libmfx-tracer.so*
-      - -usr/lib/*-linux-gnu/libmfxhw64.so*
-      - -usr/lib/*-linux-gnu/libnssckbi.so
-      - -usr/lib/*-linux-gnu/libnssdbm3.so
-      - -usr/lib/*-linux-gnu/libOpenEXRCore-*.so*
-      - -usr/lib/*-linux-gnu/libOpenEXRUtil-*.so*
-      - -usr/lib/*-linux-gnu/liborc-test-*.so*
-      - -usr/lib/*-linux-gnu/libpanel.so*
-      - -usr/lib/*-linux-gnu/libsmime3.so*
-      - -usr/lib/*-linux-gnu/libsoftokn3.so*
-      - -usr/lib/*-linux-gnu/libSoundTouchDll.so*
-      - -usr/lib/*-linux-gnu/libssl3.so
-      - -usr/lib/*-linux-gnu/libunwind-*.so*
-      - -usr/lib/*-linux-gnu/libxcb-glx.so*
-      - -usr/lib/*-linux-gnu/libXxf86vm.so*
+      - -usr/lib/*-linux-gnu/libtheora.so*
       - -usr/lib/*-linux-gnu/libzvbi-chains.so*
 
   pyqt6:
@@ -166,7 +150,7 @@ parts:
         --debug \
         --verbose \
         --jobs="$CRAFT_PARALLEL_BUILD_COUNT" \
-        --target-dir="$CRAFT_PART_INSTALL/usr/lib/python3/dist-packages" \
+        --target-dir="$CRAFT_PART_INSTALL/lib/python3.12/site-packages" \
         --enable=QtCore \
         --enable=QtDBus \
         --enable=QtGui \
@@ -183,10 +167,12 @@ parts:
         --qmake-setting QMAKE_LFLAGS="$LDFLAGS"
 
       # The sip.cpython-*.so file is required for PyQt6 during runtime
-      install /usr/local/lib/python3.12/dist-packages/PyQt6/sip.cpython-*.so "$CRAFT_PART_INSTALL/usr/lib/python3/dist-packages/PyQt6"
+      install /usr/local/lib/python3.12/dist-packages/PyQt6/sip.cpython-*.so "$CRAFT_PART_INSTALL/lib/python3.12/site-packages/PyQt6"
 
   # Qt6Multimedia is not included in the kde-neon base snap
   qt6multimedia:
+    after:
+      - cleanup  # ensure files get copied after the cleanup ran
     plugin: nil
     stage-packages:
       - libqt6multimedia6
@@ -194,30 +180,8 @@ parts:
       # Only include the necessary Qt6Multimedia files
       - usr/lib/*-linux-gnu/libQt6Multimedia.so*
       - usr/lib/*-linux-gnu/qt6/plugins/multimedia/libffmpegmediaplugin.so
-      - usr/lib/*-linux-gnu/qt6/plugins/multimedia/libgstreamermediaplugin.so
+      # - usr/lib/*-linux-gnu/qt6/plugins/multimedia/libgstreamermediaplugin.so
       - usr/share/doc/libqt6multimedia6/copyright
-
-  # Separate dependencies needed for some Picard plugins
-  plugin-requirements:
-    plugin: nil
-    stage-packages:
-      - python3-aubio  # BPM plugin
-      - python3-zstandard  # XQAF plugin
-      - libopencc1.1  # OpenCC plugin
-    prime:
-      - -usr/bin/dh_numpy3
-      - -usr/bin/f2py*
-      - -usr/lib/*-linux-gnu/pkgconfig/*
-      - -usr/lib/*-linux-gnu/libcjson_utils.so*
-      - -usr/lib/*-linux-gnu/libfftw3f_omp.so*
-      - -usr/lib/*-linux-gnu/libfftw3f_threads.so*
-      - -usr/lib/*-linux-gnu/libhwy_contrib.so*
-      - -usr/lib/*-linux-gnu/libhwy_test.so*
-      - -usr/lib/*-linux-gnu/libicuio.so*
-      - -usr/lib/*-linux-gnu/libicutest.so*
-      - -usr/lib/*-linux-gnu/libicutu.so*
-      - -usr/lib/*-linux-gnu/libmarisa.so*
-      - -usr/lib/*-linux-gnu/libzvbi-chains.so*
 
   libdiscid:
     plugin: cmake
@@ -249,21 +213,9 @@ parts:
       - libtag1-dev
       - pkg-config
     stage-packages:
-      - libavformat60
-      - libbluray2
       - libebur128-1
       - libfmt9
       - libinih1
-      - libssh-gcrypt-4
-      - libtag1v5
-    prime:
-      - -usr/lib/*-linux-gnu/libcjson_utils.so*
-      - -usr/lib/*-linux-gnu/libhwy_contrib.so*
-      - -usr/lib/*-linux-gnu/libhwy_test.so*
-      - -usr/lib/*-linux-gnu/libicuio.so*
-      - -usr/lib/*-linux-gnu/libicutest.so*
-      - -usr/lib/*-linux-gnu/libicutu.so*
-      - -usr/lib/*-linux-gnu/libzvbi-chains.so*
 
   # Custom launch scripts
   command-chain:
@@ -288,9 +240,40 @@ parts:
     prime:
       - -*
 
+  cleanup:
+    after:
+      - picard
+      - libdiscid
+      - rsgain
+    plugin: nil
+    build-snaps:
+      - core24
+      - kf6-core24
+    override-prime: |
+      # Remove duplicate files in the dependent snaps from the final snap.
+      for snap in "core24" "kf6-core24"; do
+        cd "/snap/$snap/current/usr"
+        find . -type f,l -print | sed 's|^./|/root/prime/usr/|' | xargs rm -f
+      done
+
+      cd /root/prime
+
+      # Fully remove additional files from the final snap.
+      rm -rf usr/lib/*-linux-gnu/libdrm_intel.so*
+      rm -rf usr/lib/*-linux-gnu/libwayland-client.so*
+      rm -rf usr/share/bug/
+      rm -rf usr/share/lintian/
+      rm -rf usr/share/man/
+      rm -rf usr/share/pkgconfig/
+      rm -rf usr/share/X11/
+
+      # Remove broken symlinks
+      find . -xtype l  -delete
+
+      # Remove empty directories
+      find . -depth -type d -empty -delete
+
 lint:
   ignore:
     - library:
-      - usr/lib/*-linux-gnu/caca/libgl_plugin.so*
       - usr/lib/*-linux-gnu/libdiscid.so*
-      - usr/lib/*-linux-gnu/libopencc.so*
