@@ -87,8 +87,6 @@ parts:
     python-packages:
       - OpenCC  # opencc plugin
       - zstandard  # xqaf plugin
-    stage-packages:
-      - libchromaprint-tools
     stage:
       # PyQt installed from requirements, exclude as the snap includes its own PyQt build
       - -lib/python3*/site-packages/PyQt6*
@@ -201,6 +199,35 @@ parts:
       - -usr/include/*
       - -usr/lib/x86_64-linux-gnu/pkgconfig/*
 
+  fpcalc:
+    plugin: cmake
+    source: https://github.com/acoustid/chromaprint/releases/download/v1.6.0/chromaprint-1.6.0.tar.gz
+    source-type: tar
+    source-checksum: sha256/9d33482e56a1389a37a0d6742c376139fa43e3b8a63d29003222b93db2cb40da
+    cmake-parameters:
+      - -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_TOOLS=ON -DBUILD_SHARED_LIBS=ON -DBUILD_TESTS=OFF
+    build-packages:
+      - build-essential
+      - libavcodec-dev
+      - libavformat-dev
+      - libavutil-dev
+      - pkg-config
+    stage-packages:
+      - libva-drm2
+      - libva-x11-2
+      - libva2
+      - libvdpau1
+      - libxcb-shm0
+      - libxml2
+    prime:
+      - -usr/include/*
+      - -usr/lib/*-linux-gnu/pkgconfig/*
+      - -usr/lib/*-linux-gnu/cmake/*
+      - -usr/lib/*-linux-gnu/libchromaprint.a
+      - -usr/lib/*-linux-gnu/libicutu.so*
+      - -usr/lib/*-linux-gnu/libicuio.so*
+      - -usr/lib/*-linux-gnu/libicutest.so*
+
   rsgain:
     plugin: cmake
     source: https://github.com/complexlogic/rsgain/releases/download/v3.7/rsgain-3.7-source.tar.xz
@@ -251,6 +278,7 @@ parts:
     after:
       - picard
       - libdiscid
+      - fpcalc
       - rsgain
       - qt6multimedia
     plugin: nil
