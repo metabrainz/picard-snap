@@ -259,6 +259,7 @@ parts:
       cd /root/prime
 
       # Fully remove additional files from the final snap.
+      rm -rf usr/lib/*-linux-gnu/vdpau/
       rm -rf usr/lib/*-linux-gnu/libdrm_intel.so*
       rm -rf usr/lib/*-linux-gnu/libwayland-client.so*
       rm -rf usr/share/bug/
@@ -266,6 +267,8 @@ parts:
       rm -rf usr/share/man/
       rm -rf usr/share/pkgconfig/
       rm -rf usr/share/X11/
+      rm -rf etc/fonts/
+      rm -rf etc/vdpau_wrapper.cfg
 
       # Remove broken symlinks
       find . -xtype l  -delete
@@ -276,4 +279,4 @@ parts:
 lint:
   ignore:
     - library:
-      - usr/lib/*-linux-gnu/libdiscid.so*
+      - usr/lib/*-linux-gnu/libdiscid.so*  # dynamically loaded during runtime
