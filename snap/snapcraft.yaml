@@ -29,7 +29,7 @@ apps:
       - optical-drive  # CD lookup support
       - removable-media  # Tagging files on external media is a common use case
     command-chain:
-      - bin/app-launch
+      - snap/command-chain/app-launch
 
   plugins:
     command: bin/picard-plugins
@@ -223,7 +223,7 @@ parts:
     plugin: dump
     source: command-chain
     organize:
-      '*': bin/
+      '*': snap/command-chain/
 
   # Check out the tagged release revision if it isn't promoted to the stable channel
   # https://forum.snapcraft.io/t/selective-checkout-check-out-the-tagged-release-revision-if-it-isnt-promoted-to-the-stable-channel/10617
