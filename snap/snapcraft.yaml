@@ -87,8 +87,6 @@ parts:
       - OpenCC  # opencc plugin
       - zstandard  # xqaf plugin
     stage-packages:
-      - gstreamer1.0-plugins-bad
-      - gstreamer1.0-plugins-good
       - libchromaprint-tools
     stage:
       # PyQt installed from requirements, exclude as the snap includes its own PyQt build
@@ -214,7 +212,7 @@ parts:
       # Only include the necessary Qt6Multimedia files
       - usr/lib/*-linux-gnu/libQt6Multimedia.so*
       - usr/lib/*-linux-gnu/qt6/plugins/multimedia/libffmpegmediaplugin.so
-      - usr/lib/*-linux-gnu/qt6/plugins/multimedia/libgstreamermediaplugin.so
+      # - usr/lib/*-linux-gnu/qt6/plugins/multimedia/libgstreamermediaplugin.so
       - usr/share/doc/libqt6multimedia6/copyright
 
   libdiscid:
