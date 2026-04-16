@@ -253,7 +253,7 @@ parts:
       # Remove duplicate files in the dependent snaps from the final snap.
       for snap in "core24" "kf6-core24"; do
         cd "/snap/$snap/current/usr"
-        find . -type f,l -print | grep -vPf "$CRAFT_PROJECT_DIR/snap/cleanup-ignore.txt" | sed 's|^./|§CRAFT_PRIME/usr/|' | xargs rm -f
+        find . -type f,l -print | grep -vPf "$CRAFT_PROJECT_DIR/snap/cleanup-ignore.txt" | sed 's|^./|$CRAFT_PRIME/usr/|' | xargs rm -f
       done
 
       cd "$CRAFT_PRIME"
@@ -280,3 +280,4 @@ lint:
   ignore:
     - library:
       - usr/lib/*-linux-gnu/libdiscid.so*  # dynamically loaded during runtime
+      - usr/lib/*-linux-gnu/libQt6Multimedia.so*  # needed by libffmpegmediaplugin
