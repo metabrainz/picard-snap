@@ -72,9 +72,13 @@ parts:
     source-branch: master
     # source-tag: release-3.0.0a4
     # source-depth: 1
-    plugin: python
     parse-info:
       - share/metainfo/org.musicbrainz.Picard.appdata.xml
+    plugin: uv
+    build-snaps:
+      - astral-uv
+    uv-extras:
+      - plugins
 
     override-build: |
       "$CRAFT_STAGE"/scriptlets/selective-checkout \
@@ -84,9 +88,6 @@ parts:
         # --release-candidate-tag-pattern="[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+rc[[:digit:]]+$"
       craftctl default
 
-    python-packages:
-      - OpenCC  # opencc plugin
-      - zstandard  # xqaf plugin
     stage:
       # PyQt installed from requirements, exclude as the snap includes its own PyQt build
       - -lib/python3*/site-packages/PyQt6*
