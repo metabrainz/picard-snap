@@ -107,6 +107,10 @@ parts:
       - -bin/pyuic6
       # Exclude development files
       - -include/*
+      - -lib/python3*/site-packages/opencc/clib/bin/*
+      - -lib/python3*/site-packages/opencc/clib/include/*
+      - -lib/python3*/site-packages/opencc/clib/lib/*
+      - -lib/python3*/site-packages/pygit2/decl/*
       - -usr/include/*
       - -usr/lib/*-linux-gnu/pkgconfig/*
       # Exclude unused Python packages
@@ -120,6 +124,8 @@ parts:
       - -usr/lib/*-linux-gnu/libicutu.so*
       - -usr/lib/*-linux-gnu/libtheora.so*
       - -usr/lib/*-linux-gnu/libzvbi-chains.so*
+      # Other excluded files
+      - -share/man/
 
   pyqt6:
     plugin: nil
