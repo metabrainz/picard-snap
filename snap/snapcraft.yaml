@@ -172,8 +172,6 @@ parts:
 
   # Qt6Multimedia is not included in the kde-neon base snap
   qt6multimedia:
-    after:
-      - cleanup  # ensure files get copied after the cleanup ran
     plugin: nil
     stage-packages:
       - libqt6multimedia6
@@ -246,6 +244,7 @@ parts:
       - picard
       - libdiscid
       - rsgain
+      - qt6multimedia
     plugin: nil
     build-snaps:
       - core24
@@ -254,7 +253,7 @@ parts:
       # Remove duplicate files in the dependent snaps from the final snap.
       for snap in "core24" "kf6-core24"; do
         cd "/snap/$snap/current/usr"
-        find . -type f,l -print | sed 's|^./|§{CRAFT_PRIME}/usr/|' | xargs rm -f
+        find . -type f,l -print | grep -vPf "$CRAFT_PROJECT_DIR/snap/cleanup-ignore.txt" | sed 's|^./|§CRAFT_PRIME/usr/|' | xargs rm -f
       done
 
       cd "$CRAFT_PRIME"
