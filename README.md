@@ -1,6 +1,6 @@
 <h1 align="center">
   <img
-  src="/assets/images/snap/gui/picard.svg" alt="MusicBrainz Picard">
+  src="https://raw.githubusercontent.com/metabrainz/picard-snap/main/snap/gui/picard.svg" alt="MusicBrainz Picard">
   <br />
   MusicBrainz Picard
 </h1>
@@ -37,7 +37,7 @@ The Picard Snap should show up as an application "MusicBrainz Picard" in your de
 
     snap run picard
     
-![MusicBrainz Picard main window](/assets/images/mainscreen-linux-gnome.png)
+![MusicBrainz Picard main window](https://raw.githubusercontent.com/metabrainz/picard-snap/main/mainscreen-linux-gnome.png)
 
 Picard 3 also allows managing plugins from command line. Run the following command for more information on how to use this:
 
