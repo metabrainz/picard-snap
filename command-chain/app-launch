@@ -1,5 +1,19 @@
 #!/bin/bash
 
+is_gnome() (
+    # XDG_CURRENT_DESKTOP is a colon-separated list of desktop environments
+    IFS=':'
+    for DE in ${XDG_CURRENT_DESKTOP,,}; do
+        if [[ "gnome" == "$DE" ]]; then return; fi
+    done
+    return 1
+)
+
+# For dark mode support on GNOME
+if is_gnome; then
+    export QT_QPA_PLATFORMTHEME=gnome
+fi
+
 # Make real home available, as we have the home plug connected
 # export HOME=$SNAP_REAL_HOME
 
