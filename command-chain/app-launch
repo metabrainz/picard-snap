@@ -14,7 +14,4 @@ if is_gnome; then
     export QT_QPA_PLATFORMTHEME=gnome
 fi
 
-# Make real home available, as we have the home plug connected
-# export HOME=$SNAP_REAL_HOME
-
 exec "$@"
