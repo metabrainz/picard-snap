@@ -86,6 +86,7 @@ parts:
         --stable-tag-pattern="[[:digit:]]+\.[[:digit:]]+(\.[[:digit:]]+)?$" \
         --beta-tag-pattern="[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+b[[:digit:]]+$"
         # --release-candidate-tag-pattern="[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+rc[[:digit:]]+$"
+      git apply --verbose "${SNAPCRAFT_PROJECT_DIR}"/patching/picard/*.patch
       craftctl default
 
     stage:

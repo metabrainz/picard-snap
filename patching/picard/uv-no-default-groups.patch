@@ -1,0 +1,13 @@
+diff --git a/pyproject.toml b/pyproject.toml
+index 0d913b384..d835a1e16 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -201,7 +201,7 @@ docstring-code-format = false
+ docstring-code-line-length = "dynamic"
+ 
+ [tool.uv]
+-default-groups = ["build", "dev"]
++default-groups = []
+ 
+ [tool.coverage.run]
+ source = ["picard"]
