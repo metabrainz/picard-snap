@@ -33,13 +33,11 @@ apps:
 
   plugins:
     command: bin/picard-plugins
-    environment:
-      PYTHONPATH: "$SNAP/usr/lib/python3/dist-packages"
     plugs:
       - network
     command-chain:
       - snap/command-chain/gpu-2404-wrapper
-      - snap/command-chain/desktop-launch
+      - snap/command-chain/shell-launch
 
   fpcalc:
     command: bin/fpcalc
@@ -47,7 +45,7 @@ apps:
       - home
       - removable-media
     command-chain:
-      - snap/command-chain/desktop-launch
+      - snap/command-chain/shell-launch
 
   rsgain:
     command: usr/bin/rsgain
@@ -55,7 +53,8 @@ apps:
       - home
       - removable-media
     command-chain:
-      - snap/command-chain/desktop-launch
+      - snap/command-chain/gpu-2404-wrapper
+      - snap/command-chain/shell-launch
 
 package-repositories:
   - type: apt
@@ -315,9 +314,11 @@ parts:
       # Remove empty directories
       find . -depth -type d -empty -delete
 
+      # Fix broken libxml2.so symlinks
+      ln -sf libxml.so.2 usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libxml2.so.2
+
 lint:
   ignore:
     - library:
       - usr/lib/*-linux-gnu/libdiscid.so*  # dynamically loaded during runtime
       - usr/lib/*-linux-gnu/libQt6Multimedia.so*  # needed by libffmpegmediaplugin
-      - usr/lib/*-linux-gnu/libxml2.so*  # used by update-mime-database, but not included in base snap
