@@ -205,13 +205,25 @@ parts:
     source-type: tar
     source-checksum: sha256/9d33482e56a1389a37a0d6742c376139fa43e3b8a63d29003222b93db2cb40da
     cmake-parameters:
-      - -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_TOOLS=ON -DBUILD_SHARED_LIBS=ON -DBUILD_TESTS=OFF
+      - -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_TOOLS=ON -DBUILD_SHARED_LIBS=ON -DBUILD_TESTS=ON
+    build-environment:
+      # Make sure fpcalc links against the local build
+      - LD_LIBRARY_PATH: $CRAFT_PART_BUILD/src:$LD_LIBRARY_PATH
+      - LDFLAGS: -L$CRAFT_PART_BUILD/src
+      - PKG_CONFIG_PATH: $CRAFT_PART_BUILD
     build-packages:
       - build-essential
       - libavcodec-dev
       - libavformat-dev
       - libavutil-dev
+      - patchelf
       - pkg-config
+    override-build: |
+      craftctl default
+      # Verify fpcalc runs
+      $CRAFT_PART_BUILD/src/cmd/fpcalc -v
+      # Ensure fpcalc loads the local libchromaprint
+      patchelf --force-rpath --set-rpath '$ORIGIN/../lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR' $CRAFT_PART_INSTALL/usr/bin/fpcalc
     stage-packages:
       - libva-drm2
       - libva-x11-2
@@ -289,7 +301,7 @@ parts:
       # Remove duplicate files in the dependent snaps from the final snap.
       for snap in "core24" "kf6-core24"; do
         cd "/snap/$snap/current/usr"
-        find . -type f,l -print | grep -vPf "$CRAFT_PROJECT_DIR/snap/cleanup-ignore.txt" | sed 's|^./|$CRAFT_PRIME/usr/|' | xargs rm -f
+        find . -type f,l -print | grep -vf "$CRAFT_PROJECT_DIR/snap/cleanup-ignore.txt" | sed 's|^./|$CRAFT_PRIME/usr/|' | xargs rm -f
       done
 
       cd "$CRAFT_PRIME"

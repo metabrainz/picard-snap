@@ -1,1 +1,16 @@
-lib/.*?/qt6/plugins/multimedia/.*\.so
+./lib/x86_64-linux-gnu/qt6/plugins/multimedia/libffmpegmediaplugin.so
+./lib/x86_64-linux-gnu/qt6/plugins/multimedia/libgstreamermediaplugin.so
+./lib/x86_64-linux-gnu/libchromaprint.so.1
+./lib/x86_64-linux-gnu/libchromaprint.so
+./lib/x86_64-linux-gnu/libdiscid.so.0
+./lib/x86_64-linux-gnu/libdiscid.so
+./lib/x86_64-linux-gnu/libQt6Multimedia.so.6
+./lib/x86_64-linux-gnu/libQt6Multimedia.so
+./lib/aarch64-linux-gnu/qt6/plugins/multimedia/libffmpegmediaplugin.so
+./lib/aarch64-linux-gnu/qt6/plugins/multimedia/libgstreamermediaplugin.so
+./lib/aarch64-linux-gnu/libchromaprint.so.1
+./lib/aarch64-linux-gnu/libchromaprint.so
+./lib/aarch64-linux-gnu/libdiscid.so.0
+./lib/aarch64-linux-gnu/libdiscid.so
+./lib/aarch64-linux-gnu/libQt6Multimedia.so.6
+./lib/aarch64-linux-gnu/libQt6Multimedia.so
