@@ -40,7 +40,7 @@ apps:
       - snap/command-chain/desktop-launch
 
   fpcalc:
-    command: usr/bin/fpcalc
+    command: bin/fpcalc
     plugs:
       - home
       - removable-media
@@ -200,45 +200,30 @@ parts:
       - -usr/lib/x86_64-linux-gnu/pkgconfig/*
 
   fpcalc:
-    plugin: cmake
-    source: https://github.com/acoustid/chromaprint/releases/download/v1.6.0/chromaprint-1.6.0.tar.gz
-    source-type: tar
-    source-checksum: sha256/9d33482e56a1389a37a0d6742c376139fa43e3b8a63d29003222b93db2cb40da
-    cmake-parameters:
-      - -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_TOOLS=ON -DBUILD_SHARED_LIBS=ON -DBUILD_TESTS=ON
-    build-environment:
-      # Make sure fpcalc links against the local build
-      - LD_LIBRARY_PATH: $CRAFT_PART_BUILD/src:$LD_LIBRARY_PATH
-      - LDFLAGS: -L$CRAFT_PART_BUILD/src
-      - PKG_CONFIG_PATH: $CRAFT_PART_BUILD
-    build-packages:
-      - build-essential
-      - libavcodec-dev
-      - libavformat-dev
-      - libavutil-dev
-      - patchelf
-      - pkg-config
+    plugin: nil
+    override-pull: |
+      case "$CRAFT_ARCH_BUILD_FOR" in
+        amd64)
+          url="https://github.com/acoustid/chromaprint/releases/download/v1.6.0/chromaprint-fpcalc-1.6.0-linux-x86_64.tar.gz"
+          sha256="946dc3eade645eb835c8d163c6bb354e092239988bff190b9c42589e8d5cf00a"
+          ;;
+        arm64)
+          url="https://github.com/acoustid/chromaprint/releases/download/v1.6.0/chromaprint-fpcalc-1.6.0-linux-arm64.tar.gz"
+          sha256="c8667f556f77d8ebbe08b75a968c0592bd2a67aaa696eff91715feb5083b1cd4"
+          ;;
+        *)
+          echo "Unsupported architecture: $CRAFT_ARCH_BUILD_FOR"
+          exit 1
+          ;;
+      esac
+
+      rm -rf "$CRAFT_PART_SRC"/*
+      curl -L "$url" -o fpcalc.tar.gz
+      echo "$sha256  fpcalc.tar.gz" | sha256sum -c -
+      tar -xzf fpcalc.tar.gz -C "$CRAFT_PART_SRC"
     override-build: |
-      craftctl default
-      # Verify fpcalc runs
-      $CRAFT_PART_BUILD/src/cmd/fpcalc -v
-      # Ensure fpcalc loads the local libchromaprint
-      patchelf --force-rpath --set-rpath '$ORIGIN/../lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR' $CRAFT_PART_INSTALL/usr/bin/fpcalc
-    stage-packages:
-      - libva-drm2
-      - libva-x11-2
-      - libva2
-      - libvdpau1
-      - libxcb-shm0
-      - libxml2
-    prime:
-      - -usr/include/*
-      - -usr/lib/*-linux-gnu/pkgconfig/*
-      - -usr/lib/*-linux-gnu/cmake/*
-      - -usr/lib/*-linux-gnu/libchromaprint.a
-      - -usr/lib/*-linux-gnu/libicutu.so*
-      - -usr/lib/*-linux-gnu/libicuio.so*
-      - -usr/lib/*-linux-gnu/libicutest.so*
+      mkdir -p $CRAFT_PART_INSTALL/bin
+      install -m755 chromaprint-fpcalc-*/fpcalc $CRAFT_PART_INSTALL/bin/fpcalc
 
   rsgain:
     plugin: cmake
