@@ -1,21 +1,5 @@
 #!/bin/bash
 
-if [ "$SNAP_ARCH" = "amd64" ]; then
-  ARCH="x86_64-linux-gnu"
-elif [ "$SNAP_ARCH" = "armhf" ]; then
-  ARCH="arm-linux-gnueabihf"
-elif [ "$SNAP_ARCH" = "arm64" ]; then
-  ARCH="aarch64-linux-gnu"
-elif [ "$SNAP_ARCH" = "ppc64el" ]; then
-  ARCH="powerpc64le-linux-gnu"
-else
-  ARCH="$SNAP_ARCH-linux-gnu"
-fi
-
-# Extend LD_LIBRARY_PATH for libblas and liblapack
-# Needed by aubio / numby for the BPM plugin
-LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$SNAP/usr/lib/$ARCH/blas:$SNAP/usr/lib/$ARCH/lapack"
-
 # Make real home available, as we have the home plug connected
 # export HOME=$SNAP_REAL_HOME
 
