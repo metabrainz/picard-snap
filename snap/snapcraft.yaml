@@ -79,6 +79,8 @@ parts:
       - astral-uv
     uv-extras:
       - plugins
+    stage-packages:
+      - libxml2
 
     override-build: |
       "$CRAFT_STAGE"/scriptlets/selective-checkout \
@@ -316,3 +318,4 @@ lint:
     - library:
       - usr/lib/*-linux-gnu/libdiscid.so*  # dynamically loaded during runtime
       - usr/lib/*-linux-gnu/libQt6Multimedia.so*  # needed by libffmpegmediaplugin
+      - usr/lib/*-linux-gnu/libxml2.so*  # used by update-mime-database, but not included in base snap
