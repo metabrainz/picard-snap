@@ -35,6 +35,8 @@ apps:
     command: bin/picard-plugins
     environment:
       PYTHONPATH: "$SNAP/usr/lib/python3/dist-packages"
+    plugs:
+      - network
     command-chain:
       - snap/command-chain/gpu-2404-wrapper
       - snap/command-chain/desktop-launch
