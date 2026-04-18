@@ -105,6 +105,7 @@ parts:
       - -bin/pip*
       - -bin/pylupdate6
       - -bin/pyuic6
+      - -bin/*.bat
       # Exclude development files
       - -include/*
       - -lib/python3*/site-packages/opencc/clib/bin/*
