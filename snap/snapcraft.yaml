@@ -305,7 +305,7 @@ parts:
       find . -depth -type d -empty -delete
 
       # Fix broken libxml2.so symlinks
-      ln -sf libxml.so.2 usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libxml2.so.2
+      ln -sf libxml2.so.2.9.14 usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/libxml2.so.2
 
 lint:
   ignore:
