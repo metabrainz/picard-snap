@@ -132,8 +132,6 @@ parts:
     source: https://files.pythonhosted.org/packages/8b/47/b25c13eca5bebc6505394d0223e46d7ebf0c57dcac2ed908d7d19b18ab6b/pyqt6-6.11.0.tar.gz
     source-type: tar
     source-checksum: sha256/45dd60aa69976de1918b5ced6b4e7b6a25abd2a919ecef5fd5826ecc76718889
-    build-snaps:
-      - kde-qt6-core24-sdk
     build-packages:
       - libvulkan-dev
       - python3-pip
@@ -235,7 +233,6 @@ parts:
     cmake-parameters:
       - -DCMAKE_INSTALL_PREFIX=/usr
     build-packages:
-      - build-essential
       - libavcodec-dev
       - libavformat-dev
       - libavutil-dev
@@ -244,7 +241,6 @@ parts:
       - libinih-dev
       - libswresample-dev
       - libtag1-dev
-      - pkg-config
     stage-packages:
       - libebur128-1
       - libfmt9
@@ -281,9 +277,6 @@ parts:
       - rsgain
       - qt6multimedia
     plugin: nil
-    build-snaps:
-      - core24
-      - kf6-core24
     override-prime: |
       # Remove duplicate files in the dependent snaps from the final snap.
       for snap in "core24" "kf6-core24"; do
