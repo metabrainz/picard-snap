@@ -20,8 +20,6 @@ apps:
       - kde-neon-6
     common-id: org.musicbrainz.Picard
     command: bin/picard
-    environment:
-      PYTHONPATH: "$SNAP/usr/lib/python3/dist-packages"
     plugs:
       - gsettings
       - home  # At a minimum users should be allowed to tag files on their home directory

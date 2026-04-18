@@ -14,4 +14,6 @@ if is_gnome; then
     export QT_QPA_PLATFORMTHEME=gnome
 fi
 
+export PYTHONPATH="$SNAP/usr/lib/python3/dist-packages"
+
 exec "$@"
