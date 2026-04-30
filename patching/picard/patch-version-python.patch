@@ -1,0 +1,15 @@
+diff --git a/scripts/tools/patch-version.sh b/scripts/tools/patch-version.sh
+index 22330c4a0..e42a3bf69 100755
+--- a/scripts/tools/patch-version.sh
++++ b/scripts/tools/patch-version.sh
+@@ -10,8 +10,8 @@ COMMIT_HASH=$(git rev-parse --short HEAD)
+ if [ "$CHANGE_COUNT" -ne 0 ]; then
+     VERSION_EXTRA="$CHANGE_COUNT-$COMMIT_HASH"
+     echo "Patching version: $VERSION_EXTRA"
+-    python setup.py patch_version --platform="$VERSION_EXTRA"
++    python3 setup.py patch_version --platform="$VERSION_EXTRA"
+ fi
+ 
+-VERSION=$(python -c "import picard; print(picard.__version__)")
++VERSION=$(python3 -c "import picard; print(picard.__version__)")
+ echo "Patched version: v$VERSION"
