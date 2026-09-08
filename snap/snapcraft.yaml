@@ -14,11 +14,6 @@ platforms:
   amd64:
   arm64:
 
-slots:
-  # MPRIS support for media playback control
-  mpris:
-    name: picard
-
 apps:
   picard:
     extensions:
@@ -30,6 +25,8 @@ apps:
       - home  # At a minimum users should be allowed to tag files on their home directory
       - optical-drive  # CD lookup support
       - removable-media  # Tagging files on external media is a common use case
+    slots:
+      - mpris  # MPRIS support for media playback control of built-in player
     command-chain:
       - snap/command-chain/app-launch
 
