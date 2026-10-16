@@ -216,12 +216,12 @@ parts:
     override-pull: |
       case "$CRAFT_ARCH_BUILD_FOR" in
         amd64)
-          url="https://github.com/acoustid/chromaprint/releases/download/v1.6.1/chromaprint-fpcalc-1.6.1-linux-x86_64.tar.gz"
-          sha256="fc16cd37a70168040bc9ceb45f1d4d1216f5a75bc4c9cf8564bea70ac6a45733"
+          url="https://github.com/acoustid/chromaprint/releases/download/v1.6.2/chromaprint-fpcalc-1.6.2-linux-x86_64.tar.gz"
+          sha256="c968ad4a0821592a79b158fb2e1f46cbe0a22a0a1dbc0743c67d68e75d15d2bb"
           ;;
         arm64)
-          url="https://github.com/acoustid/chromaprint/releases/download/v1.6.1/chromaprint-fpcalc-1.6.1-linux-arm64.tar.gz"
-          sha256="7eaf5d655c4aa172ab28e3c870b8bb61dd2c327ac94de145676f88842cf6215a"
+          url="https://github.com/acoustid/chromaprint/releases/download/v1.6.2/chromaprint-fpcalc-1.6.2-linux-arm64.tar.gz"
+          sha256="3aa1498126ed272d805bc9d081c77965c9e1e1a0891bb112c13b56ef2ad47bad"
           ;;
         *)
           echo "Unsupported architecture: $CRAFT_ARCH_BUILD_FOR"
