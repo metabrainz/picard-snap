@@ -81,6 +81,7 @@ parts:
       - cli
       - plugins
     build-packages:
+      - libc6-dev
       - python3-dev
     stage-packages:
       - libxcb-shape0
