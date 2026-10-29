@@ -80,6 +80,8 @@ parts:
     uv-extras:
       - cli
       - plugins
+    build-packages:
+      - python3-dev
     stage-packages:
       - libxcb-shape0
       - libxml2
