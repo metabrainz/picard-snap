@@ -62,6 +62,7 @@ package-repositories:
     components: [main]
     architectures: [amd64, arm64]
     key-id: 444DABCF3667D0283F894EDDE6D4736255751E5D
+    priority: always
 
 parts:
   picard:
