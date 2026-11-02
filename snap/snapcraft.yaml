@@ -80,8 +80,8 @@ parts:
       # The kde-qt6-core24-sdk ships a broken gcc toolchain.
       # Explicitly set the compiler from the base system instead.
       # See https://bugs.kde.org/show_bug.cgi?id=528189
-      - CC: /usr/bin/x86_64-linux-gnu-gcc
-      - CXX: /usr/bin/x86_64-linux-gnu-g++
+      - CC: /usr/bin/gcc
+      - CXX: /usr/bin/g++
     build-snaps:
       - astral-uv
     uv-extras:
