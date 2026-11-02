@@ -76,14 +76,17 @@ parts:
     parse-info:
       - share/metainfo/org.musicbrainz.Picard.appdata.xml
     plugin: uv
+    build-environment:
+      # The kde-qt6-core24-sdk ships a broken gcc toolchain.
+      # Explicitly set the compiler from the base system instead.
+      # See https://bugs.kde.org/show_bug.cgi?id=528189
+      - CC: /usr/bin/x86_64-linux-gnu-gcc
+      - CXX: /usr/bin/x86_64-linux-gnu-g++
     build-snaps:
       - astral-uv
     uv-extras:
       - cli
       - plugins
-    build-packages:
-      - build-essential
-      - python3-dev
     stage-packages:
       - libxcb-shape0
       - libxml2
