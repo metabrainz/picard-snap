@@ -115,14 +115,17 @@ parts:
       # Unused binaries
       - -bin/activate*
       - -bin/Activate.ps1
+      - -bin/cffi-gen-src
       - -bin/markdown_py
       - -bin/mid3*
       - -bin/moggsplit
       - -bin/mutagen-*
       - -bin/normalizer
+      - -bin/opencc
       - -bin/pip*
       - -bin/pylupdate6
       - -bin/pyuic6
+      - -bin/shtab
       - -bin/*.bat
       # Exclude development files
       - -include/*
