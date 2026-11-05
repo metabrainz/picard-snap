@@ -249,6 +249,8 @@ parts:
       install -m755 chromaprint-fpcalc-*/fpcalc $CRAFT_PART_INSTALL/bin/fpcalc
 
   rsgain:
+    after:
+      - taglib
     plugin: cmake
     source: https://github.com/complexlogic/rsgain/releases/download/v3.8/rsgain-3.8-source.tar.xz
     source-type: tar
@@ -263,11 +265,20 @@ parts:
       - libfmt-dev
       - libinih-dev
       - libswresample-dev
-      - libtag1-dev
     stage-packages:
       - libebur128-1
       - libfmt9
       - libinih1
+
+  taglib:
+    plugin: cmake
+    source: https://github.com/taglib/taglib/releases/download/v2.3.2/taglib-2.3.2.tar.gz
+    source-type: tar
+    source-checksum: sha256/3ca2d8afaa7f1cf7f6ed10e511ebc368bfacd6dcaa3dbfa690b89e502e8963dc
+    cmake-parameters:
+      - -DCMAKE_INSTALL_PREFIX=/usr
+    prime:
+      - -*  # Nothing needed in final package (static build, linked statically by rsgain)
 
   # Custom launch scripts
   command-chain:
