@@ -12,7 +12,7 @@ website: https://picard.musicbrainz.org/
 
 platforms:
   amd64:
-  arm64:
+  # arm64:
 
 apps:
   picard:
