@@ -257,6 +257,8 @@ parts:
     source-checksum: sha256/0c590fa8ecd084e181dca6d4776f29d532d36c53cb8fde56f87f1270ce45a3cd
     cmake-parameters:
       - -DCMAKE_INSTALL_PREFIX=/usr
+    build-environment:
+      - LDFLAGS: "-Wl,--no-as-needed -lz -Wl,--as-needed"
     build-packages:
       - libavcodec-dev
       - libavformat-dev
