@@ -132,6 +132,7 @@ parts:
       - -lib/python3*/site-packages/opencc/clib/bin/*
       - -lib/python3*/site-packages/opencc/clib/include/*
       - -lib/python3*/site-packages/opencc/clib/lib/*
+      - -lib/python3*/site-packages/opencc/clib/lib64/*
       - -lib/python3*/site-packages/pygit2/decl/*
       - -usr/include/*
       - -usr/lib/*-linux-gnu/pkgconfig/*
