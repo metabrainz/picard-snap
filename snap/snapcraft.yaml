@@ -196,6 +196,8 @@ parts:
 
       # The sip.cpython-*.so file is required for PyQt6 during runtime
       install /usr/local/lib/python3.12/dist-packages/PyQt6/sip.cpython-*.so "$CRAFT_PART_INSTALL/lib/python3.12/site-packages/PyQt6"
+    prime:
+      - -lib/python3*/site-packages/PyQt6/bindings/*
 
   # Qt6Multimedia is not included in the kde-neon base snap
   # qt6multimedia:
