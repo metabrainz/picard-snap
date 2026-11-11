@@ -54,6 +54,15 @@ apps:
     command-chain:
       - snap/command-chain/gpu-2404-wrapper
       - snap/command-chain/shell-launch
+    environment:
+      LD_LIBRARY_PATH: $SNAP/ffmpeg-platform/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR
+      PATH: $SNAP/ffmpeg-platform/usr/bin
+
+plugs:
+  ffmpeg-2404:
+    interface: content
+    target: ffmpeg-platform
+    default-provider: ffmpeg-2404
 
 # package-repositories:
 #   - type: apt
@@ -261,15 +270,16 @@ parts:
     cmake-parameters:
       - -DCMAKE_INSTALL_PREFIX=/usr
     build-environment:
+      - PKG_CONFIG_PATH: /snap/ffmpeg-2404-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pkgconfig${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}
+      - LD_LIBRARY_PATH: /snap/ffmpeg-2404-sdk/current/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
+      - PATH: /snap/ffmpeg-2404-sdk/current/usr/bin${PATH:+:$PATH}
       - LDFLAGS: "-Wl,--no-as-needed -lz -Wl,--as-needed"
+    build-snaps:
+      - ffmpeg-2404-sdk
     build-packages:
-      - libavcodec-dev
-      - libavformat-dev
-      - libavutil-dev
       - libebur128-dev
       - libfmt-dev
       - libinih-dev
-      - libswresample-dev
     stage-packages:
       - libebur128-1
       - libfmt9
