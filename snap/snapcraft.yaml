@@ -34,6 +34,9 @@ apps:
     command: bin/picard-cli
     plugs:
       - network
+      - home
+      - optical-drive
+      - removable-media
     command-chain:
       - snap/command-chain/gpu-2404-wrapper
       - snap/command-chain/shell-launch
